@@ -9,7 +9,7 @@
 
 /**
  * @file CSVBuffer.h
- * @author Andrew Johnson
+ * @author Group 2
  * @brief CSVBuffer class for reading zip code records from CSV files
  * @version 0.1
  * @date 2025-09-11
