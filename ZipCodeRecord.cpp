@@ -1,9 +1,9 @@
 /**
  * @file ZipCodeRecord.cpp
- * @author Your Name
+ * @author Group 2
  * @brief Implementation of ZipCodeRecord class
- * @version 1.0
- * @date 2025-01-15
+ * @version 0.1
+ * @date 2025-09-17
  */
 
 #include "ZipCodeRecord.h"

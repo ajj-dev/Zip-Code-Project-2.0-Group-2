@@ -1,7 +1,7 @@
 /**
  * @file test_main.cpp  
  * @brief Test program for ZipCodeRecord and CSVBuffer classes
- * @author Andrew Johnson
+ * @author Group 2
  * @version 0.1
  * @date 2025-09-11
  */

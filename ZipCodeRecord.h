@@ -6,7 +6,7 @@
 
 /**
  * @file ZipCodeRecord.h
- * @author Andrew Johnson
+ * @author Group 2
  * @brief ZipCodeRecord class for storing individual zip code information
  * @version 0.1
  * @date 2025-09-11

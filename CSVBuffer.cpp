@@ -1,9 +1,9 @@
 /**
  * @file CSVBuffer.cpp
- * @author Your Name  
+ * @author Group 2 
  * @brief Implementation of CSVBuffer class for reading zip code CSV files
- * @version 1.0
- * @date 2025-01-15
+ * @version 0.1
+ * @date 2025-09-17
  */
 
 #include "CSVBuffer.h"
