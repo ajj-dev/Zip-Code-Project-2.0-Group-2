@@ -35,7 +35,7 @@ int main()
     CSVBuffer buffer;
     
     // Try to open the CSV file
-    if (buffer.openFile("zipcode_data.csv")) 
+    if (buffer.openFile("CSV_ZipCode_Sort.csv")) 
     {
         std::cout << "Successfully opened CSV file" << std::endl;
         

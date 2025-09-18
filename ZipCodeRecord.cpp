@@ -91,7 +91,7 @@ bool ZipCodeRecord::setZipCode(const int inZipCode)
 
 bool ZipCodeRecord::setLatitude(const double inLatitude)
 {
-    if (isValidLatitude(inLatitude)) 
+    if (inLatitude >= -90.0 && inLatitude <= 90.0) 
     {
         latitude = inLatitude;
         return true;
@@ -101,7 +101,7 @@ bool ZipCodeRecord::setLatitude(const double inLatitude)
 
 bool ZipCodeRecord::setLongitude(const double inLongitude)
 {
-    if (isValidLongitude(inLongitude)) 
+    if (inLongitude >= -180.0 && inLongitude <= 180.0) 
     {
         longitude = inLongitude;
         return true;
@@ -191,17 +191,6 @@ bool ZipCodeRecord::isSouthOf(const ZipCodeRecord& other) const
 bool ZipCodeRecord::isWestOf(const ZipCodeRecord& other) const
 {
     return longitude > other.longitude; // West means larger longitude (less negative/more positive in US)
-}
-
-// Private validation methods
-bool ZipCodeRecord::isValidLatitude(const double inLatitude) const
-{
-    return inLatitude >= -90.0 && inLatitude <= 90.0;
-}
-
-bool ZipCodeRecord::isValidLongitude(const double inLongitude) const
-{
-    return inLongitude >= -180.0 && inLongitude <= 180.0;
 }
 
 // Stream output operator

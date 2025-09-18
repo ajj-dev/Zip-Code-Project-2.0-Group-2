@@ -125,20 +125,6 @@ private:
     std::string locationName; // Town name
     char state[3]; // Two-character state code + null terminator
     std::string county; // County name
-    
-    /**
-     * @brief Validate latitude range
-     * @param inLatitude [IN] Latitude to validate
-     * @return true if latitude is between -90 and 90
-     */
-    bool isValidLatitude(const double inLatitude) const;
-    
-    /**
-     * @brief Validate longitude range
-     * @param inLongitude [IN] Longitude to validate
-     * @return true if longitude is between -180 and 180
-     */
-    bool isValidLongitude(const double inLongitude) const;
 };
 
 #endif // ZIP_CODE_RECORD_H
