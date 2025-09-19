@@ -77,9 +77,6 @@ int main()
     std::cout << "Testing invalid state: " 
               << (invalidRecord.setState("ABC") ? "Success" : "Failed (expected)") << std::endl;
 
-    // ===========================
-    // Assignment additions (minimal)
-    // ===========================
     try {
         std::cout << "\n=== Assignment Output: Per-State Extremes Table ===\n";
         DataManager mgr;
