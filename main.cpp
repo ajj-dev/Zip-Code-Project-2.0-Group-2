@@ -8,6 +8,7 @@
 
 #include "ZipCodeRecord.h"
 #include "CSVBuffer.h"
+#include "Datamanager.h"
 #include <iostream>
 
 int main() 
@@ -25,10 +26,14 @@ int main()
     
     // Test comparison methods
     std::cout << "Comparison tests:" << std::endl;
-    std::cout << "Record 1 is north of Record 2: " << (record1.isNorthOf(record2) ? "Yes" : "No") << std::endl;
-    std::cout << "Record 1 is east of Record 2: " << (record1.isEastOf(record2) ? "Yes" : "No") << std::endl;
-    std::cout << "Record 2 is south of Record 1: " << (record2.isSouthOf(record1) ? "Yes" : "No") << std::endl;
-    std::cout << "Record 2 is west of Record 1: " << (record2.isWestOf(record1) ? "Yes" : "No") << std::endl;
+    std::cout << "Record 1 is north of Record 2: " 
+              << (record1.isNorthOf(record2) ? "Yes" : "No") << std::endl;
+    std::cout << "Record 1 is east of Record 2: " 
+              << (record1.isEastOf(record2) ? "Yes" : "No") << std::endl;
+    std::cout << "Record 2 is south of Record 1: " 
+              << (record2.isSouthOf(record1) ? "Yes" : "No") << std::endl;
+    std::cout << "Record 2 is west of Record 1: " 
+              << (record2.isWestOf(record1) ? "Yes" : "No") << std::endl;
     
     // Test 2: CSV Buffer functionality  
     std::cout << "Test 2: CSV File Reading" << std::endl;
@@ -65,10 +70,32 @@ int main()
     std::cout << "Test 3: Error Handling";
     ZipCodeRecord invalidRecord;
     
-    std::cout << "Testing invalid zip code: " << (invalidRecord.setZipCode(-1) ? "Success" : "Failed (expected)") << std::endl;
-    std::cout << "Testing invalid latitude: " << (invalidRecord.setLatitude(100.0) ? "Success" : "Failed (expected)") << std::endl;
-    std::cout << "Testing invalid state: " << (invalidRecord.setState("ABC") ? "Success" : "Failed (expected)") << std::endl;
-    
+    std::cout << "Testing invalid zip code: " 
+              << (invalidRecord.setZipCode(-1) ? "Success" : "Failed (expected)") << std::endl;
+    std::cout << "Testing invalid latitude: " 
+              << (invalidRecord.setLatitude(100.0) ? "Success" : "Failed (expected)") << std::endl;
+    std::cout << "Testing invalid state: " 
+              << (invalidRecord.setState("ABC") ? "Success" : "Failed (expected)") << std::endl;
+
+    try {
+        std::cout << "\n=== Assignment Output: Per-State Extremes Table ===\n";
+        DataManager mgr;
+        // Use the canonical source CSV for the required table output to stdout:
+        mgr.loadFromCsv("zipcode_data.csv");
+        mgr.computeExtremes();
+        mgr.printTable(std::cout); // REQUIRED: directed to standard output
+
+        // Optional: demonstrate identical results across differently sorted CSVs
+        bool identical = DataManager::verifyIdenticalResults(
+            "CSV_ZipCode_Sort.csv",
+            "CSV_County_Sort.csv"
+        );
+        std::cerr << "[Verification] Identical results across sorts? "
+                  << (identical ? "YES" : "NO") << std::endl;
+    } catch (const std::exception& ex) {
+        std::cerr << "ERROR (DataManager): " << ex.what() << std::endl;
+    }
+
     std::cout << "All tests completed!";
     return 0;
 }
