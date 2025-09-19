@@ -21,10 +21,10 @@ void DataManager::updateExtremesForState(Extremes& ex, const ZipCodeRecord& rec)
         return;
     }
 
-    if (lon < ex.easternmost.getLongitude())  ex.easternmost = rec;      // min lon
-    if (lon > ex.westernmost.getLongitude())  ex.westernmost = rec;      // max lon
-    if (lat > ex.northernmost.getLatitude())  ex.northernmost = rec;     // max lat
-    if (lat < ex.southernmost.getLatitude())  ex.southernmost = rec;     // min lat
+    if (lon < ex.easternmost.getLongitude())  ex.easternmost = rec; // min lon
+    if (lon > ex.westernmost.getLongitude())  ex.westernmost = rec; // max lon
+    if (lat > ex.northernmost.getLatitude())  ex.northernmost = rec; // max lat
+    if (lat < ex.southernmost.getLatitude())  ex.southernmost = rec; // min lat
 }
 
 // -------- Public API --------
@@ -37,9 +37,6 @@ std::size_t DataManager::loadFromCsv(const std::string& csvPath) {
         oss << "Failed to open CSV: " << csvPath << " (" << buffer.lastError() << ")";
         throw std::runtime_error(oss.str());
     }
-
-    // If CSVBuffer has a method like readHeader(), call it; else skip if it auto-handles.
-    // buffer.readHeader(); // uncomment if applicable
 
     ZipCodeRecord rec;
     std::size_t count = 0;
