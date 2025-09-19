@@ -81,7 +81,7 @@ int main()
         std::cout << "\n=== Assignment Output: Per-State Extremes Table ===\n";
         DataManager mgr;
         // Use the canonical source CSV for the required table output to stdout:
-        mgr.loadFromCsv("zipcode_data.csv");
+        mgr.loadFromCsv("CSV_ZipCode_Sort.csv");
         mgr.computeExtremes();
         mgr.printTable(std::cout); // REQUIRED: directed to standard output
 
