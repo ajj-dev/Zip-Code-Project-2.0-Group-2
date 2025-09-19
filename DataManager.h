@@ -73,3 +73,4 @@ private:
 
     static void updateExtremes(Extremes& ex, const ZipCodeRecord& rec);
 };
+#endif
