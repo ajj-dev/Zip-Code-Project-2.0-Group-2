@@ -9,6 +9,7 @@ Things To Do:
 - Creation of the DataManager class: Done
 - Implementation of DataManager class: Done
 - Testing of DataManager class: Done
-- Finish Design Document:
+- Finish Design Document: Done
 - Clean Up Main Program:
 - Test Doxygen Generation with Current Code (Adjust Comments as Needed):
+
