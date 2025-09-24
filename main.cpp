@@ -11,6 +11,10 @@
 #include "Datamanager.h"
 #include <iostream>
 
+/**
+ * @brief The main function loads the zipcodes from a csv file, computes the north south east and west extremes and then prints a table. 
+ * @post returns 0 on success.
+ */
 int main() 
 {
     try {
@@ -26,12 +30,14 @@ int main()
             "CSV_ZipCode_Sort.csv",
             "CSV_County_Sort.csv"
         );
+        //prints weather the data is identical accross sorts
         std::cerr << "[Verification] Identical results across sorts? "
                   << (identical ? "YES" : "NO") << std::endl;
-    } catch (const std::exception& ex) {
+    } catch (const std::exception& ex) { 
+        //prints error message on exception
         std::cerr << "ERROR (DataManager): " << ex.what() << std::endl;
     }
 
-    std::cout << "All tests completed!";
+    std::cout << "All tests completed!"; //success message
     return 0;
 }
