@@ -9,7 +9,7 @@
 - Confirm identical results between original and randomized data:
 
 ### 2. Binary File Format Development:
-- HeaderRecord class - Complete with serialization/deserialization: done
+- HeaderRecord class - Complete with serialization/deserialization:
 - ZipCodeRecord serialization - Add serialize()/deserialize() methods:
 - CSV to binary converter - Tool to convert CSV files to length-indicated format (.zcd files):
 - LengthIndicatedBuffer class - New buffer to read/write length-indicated records:
