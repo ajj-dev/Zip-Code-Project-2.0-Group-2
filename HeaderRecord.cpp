@@ -1,0 +1,270 @@
+#include "HeaderRecord.h"
+
+HeaderRecord::HeaderRecord()
+{
+}
+
+std::vector<uint8_t> HeaderRecord::serialize() const
+{
+/*
+    Explanation of patterns:
+        - data.insert(data.end(), reinterpret_cast<const uint8_t*>(&x), reinterpret_cast<const uint8_t*>(&x) + sizeof(x)):
+            - The line of code above does the following:
+                - data.end() is the starting location of the insertion. So this means insertion is at the end of vector.
+                - The first reinterpret cast is the starting address of the variable.
+                - The secoind reinterpet cast is the end adress of the variable.
+                - The insert then copies all bytes between the starting location and ending location into the vector.
+                - It needs to be reinterpreted to a uint8_t to maintain the binary format.
+                - Example: 
+                    - Version is stored as a uint16_t. The structure above will split the uint16_t into two uint_8t's.
+                    - Those two uint8_t's will then be added as the next two entries in the vector.
+
+        - data.insert(data.end(), fileStructureType, fileStructureType + 4);
+            - File Structure type is an array of characters:
+                - Since each character is one byte it does not need a reinterpret cast.
+                - So the start is the beginning of fileStructureType (arrays are adresses) .
+                - The end is fileStructureType + 4 (which is the array length).
+                - Insert will add each byte inbetween these to the vector.
+
+        - data.push_back(sizeFormatType);
+            - sizeFormatType is already a uint8_t meaning it can be pushed without modifcation.
+        
+        - data.insert(data.end(), indexFileName.begin(), indexFileName.end());
+            - Again the start position is the end of the vector.
+            - using the .begin() function on a string gives the address of the first stored char.
+            - using the .end() function on a string gives the address of the last stored char.
+            - In conjuction they accomplish the same thing as fileStructureType, only it is dynamic.
+
+        -  size_t headerSizePos = data.size();
+            uint32_t tempHeaderSize = 0;
+            data.insert(data.end(), reinterpret_cast<const uint8_t*>(&tempHeaderSize),
+                        reinterpret_cast<const uint8_t*>(&tempHeaderSize) + sizeof(tempHeaderSize)
+
+            - This stores the starting memory address of headerSizePos by getting the data vectors current size.
+            - Then it creates a temporary headerSizeVariable as a uint32_t to insert for now.
+            - It is inserted using the usual pattern.
+            - Once the rest of the data has been inserted the memory address will be used to change it to the calculated value.
+
+        - for(const auto& field : fields)
+            {
+                // Length of name field
+                uint16_t nameLength = field.name.length();
+                data.insert(data.end(), reinterpret_cast<const uint8_t*>(&nameLength),
+                         reinterpret_cast<const uint8_t*>(&nameLength) + sizeof(nameLength));
+
+                // Name of field
+                data.insert(data.end(), field.name.begin(), field.name.end());
+
+                // Field Type
+                data.push_back(field.type);
+            }
+            
+            - So for each field in the fields array:
+                - The name length is fetched from the filed name in the structure and inserted using the reinterpret pattern.
+                - The name of the field is fetched from the structure and inserted using the string pattern.
+                - The field type is fetched from the structure and inserted using push_back as it is already a uint8_t.
+
+        -  uint32_t trueHeaderSize = data.size();
+            memcpy(&data[headerSizePos], &trueHeaderSize, sizeof(trueHeaderSize));
+
+            - Here a new uint32_t that will represent the true size of the header is created and set to the current dataSize.
+            - Breaking down memcpy:
+                - &data[headerSizePos]:
+                    - Location in the data vector where the temp variable was stored
+                - &trueHeaderSize:
+                    - Reference to the calculated size that will be replacing the temp variable
+                - sizeof(trueHeaderSize):
+                    - The amount of bytes that will be copied. In this case 4 bytes for the uint32_t.
+
+    That should just about cover everything going on here, couple more things:
+        - There is no error checking or validation going on at the moment.
+        - Everything here is converted to little endian format. It is not fully portable.
+*/
+
+    std::vector<uint8_t> data; // Stores the binary data
+
+    // File Structure Type
+    data.insert(data.end(), fileStructureType, fileStructureType + 4);
+
+    // Version
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&version), 
+                reinterpret_cast<const uint8_t*>(&version) + sizeof(version));
+
+    // Create Header Size and Store location since it needs to be calculated
+    size_t headerSizePos = data.size();
+    uint32_t tempHeaderSize = 0;
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&tempHeaderSize),
+                reinterpret_cast<const uint8_t*>(&tempHeaderSize) + sizeof(tempHeaderSize));
+
+    // Size format type
+    data.push_back(sizeFormatType);
+
+    // Size of sizes
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&sizeOfSizes),
+                reinterpret_cast<const uint8_t*>(&sizeOfSizes) + sizeof(sizeOfSizes));
+
+    // Size Inclusion
+    data.push_back(sizeInclusionFlag);
+
+    // Index Filename Length
+    uint16_t filenameLength = indexFileName.length();
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&filenameLength),
+                reinterpret_cast<const uint8_t*>(&filenameLength) + sizeof(filenameLength));
+
+    // Index Filename
+    data.insert(data.end(), indexFileName.begin(), indexFileName.end());
+
+    // Record Count
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&recordCount),
+                reinterpret_cast<const uint8_t*>(&recordCount) + sizeof(recordCount));
+    
+    // Field Count
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&fieldCount),
+                reinterpret_cast<const uint8_t*>(&fieldCount) + sizeof(fieldCount));
+
+    // Fields Array
+    for(const auto& field : fields)
+    {
+        // Length of name field
+        uint16_t nameLength = field.name.length();
+        data.insert(data.end(), reinterpret_cast<const uint8_t*>(&nameLength),
+                    reinterpret_cast<const uint8_t*>(&nameLength) + sizeof(nameLength));
+
+        // Name of field
+        data.insert(data.end(), field.name.begin(), field.name.end());
+
+        // Field Type
+        data.push_back(field.type);
+    }
+
+    // Primary Key Field
+    data.push_back(primaryKeyField);
+
+    // Calculate Header Size
+    uint32_t trueHeaderSize = data.size();
+    memcpy(&data[headerSizePos], &trueHeaderSize, sizeof(trueHeaderSize));
+
+    return data;
+}
+
+HeaderRecord HeaderRecord::deserialize(const uint8_t* data, size_t length)
+{
+}
+
+// GETTERS
+const char* HeaderRecord::getFileStructureType() const
+{
+    return fileStructureType;
+}
+
+uint16_t HeaderRecord::getVersion() const
+{
+    return version;
+}
+
+uint32_t HeaderRecord::getHeaderSize() const
+{
+    return headerSize;
+}
+
+uint8_t HeaderRecord::getSizeFormatType() const
+{
+    return sizeFormatType;
+}
+
+uint32_t HeaderRecord::getSizeOfSizes() const
+{
+    return sizeOfSizes;
+}
+
+uint8_t HeaderRecord::getSizeInclusionFlag() const
+{
+    return sizeInclusionFlag;
+}
+
+const std::string& HeaderRecord::getIndexFileName() const
+{
+    return indexFileName;
+}
+
+uint32_t HeaderRecord::getRecordCount() const
+{
+    return recordCount;
+}
+
+uint16_t HeaderRecord::getFieldCount() const
+{
+    return fieldCount;
+}
+
+const std::vector<FieldDef>& HeaderRecord::getFields() const
+{
+    return fields;
+}
+
+uint8_t HeaderRecord::getPrimaryKeyField() const
+{
+    return primaryKeyField;
+}
+
+//SETTERS
+void HeaderRecord::setFileStructureType(const char* type)
+{
+    strncpy(fileStructureType, type, 4);
+}
+
+void HeaderRecord::setVersion(uint16_t ver)
+{
+    this->version = ver;
+}
+
+void HeaderRecord::setHeaderSize(uint32_t size)
+{
+    this->headerSize = size;
+}
+
+void HeaderRecord::setSizeFormatType(uint8_t type)
+{
+    this->sizeFormatType = type;
+}
+
+void HeaderRecord::setSizeOfSizes(uint32_t size)
+{
+    this->sizeOfSizes = size;
+}
+
+void HeaderRecord::setSizeInclusionFlag(uint8_t flag)
+{
+    this->sizeInclusionFlag = flag;
+}
+
+void HeaderRecord::setIndexFileName(const std::string& filename)
+{
+    this->indexFileName = filename;
+}
+
+void HeaderRecord::setRecordCount(uint32_t count)
+{
+    this->recordCount = count;
+}
+
+void HeaderRecord::setFieldCount(uint16_t count)
+{
+    this->fieldCount = count;
+}
+
+void HeaderRecord::setFields(const std::vector<FieldDef>& fieldDefs)
+{
+    this->fields = fieldDefs;
+}
+
+void HeaderRecord::setPrimaryKeyField(uint8_t field)
+{
+    this->primaryKeyField = field;
+}
+
+void HeaderRecord::addField(const FieldDef& field)
+{
+    this->fields.push_back(field);
+    this->fieldCount = fields.size();
+}
