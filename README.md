@@ -1,14 +1,43 @@
-﻿# Zip-Code-Project-2.0-Group-2
+﻿# ZipCode Group Project 2.0
 
-ZipCode Group Project 2.0 - Work in Progress
+## Part 1 Requirements
 
-Things To Do (Part 1):
-- Create new CSV files:
-- Test sequential reading of the new CSV files:
-- Convert CSV files to a length indicated file structure format:
-- Modify the buffer class to read and unpack Zip Code Records from a length indicated format:
-- Create a new buffer class to read and write the data file header record:
-- Repeat Project 1.0 testing methodology with the new length indicated system:
+### 1. CSV File Creation & Testing:
+- Create CSV from original XLSX file:
+- Create CSV from row-randomized XLSX file (remove column G first):
+- Verify Project 1.0 works with both CSV files (sequential processing):
+- Confirm identical results between original and randomized data:
 
-Things To Do (Part 2):
-- Create primary key index in ram that can display the ZipCode data for all ZipCodes listed on the command line (Refer to pt2 instructions for specifics):
+### 2. Binary File Format Development:
+- HeaderRecord class - Complete with serialization/deserialization: done
+- ZipCodeRecord serialization - Add serialize()/deserialize() methods:
+- CSV to binary converter - Tool to convert CSV files to length-indicated format (.zcd files):
+- LengthIndicatedBuffer class - New buffer to read/write length-indicated records:
+- HeaderBuffer class - Buffer specifically for reading/writing header records:
+
+### 3. Buffer Class Modifications:
+- Modify existing CSVBuffer or create new buffer for length-indicated files:
+- Ensure buffer can read and unpack ZipCodeRecord from binary format:
+- Handle variable-length records with size prefixes:
+
+### 4. Integration & Testing:
+- Convert both CSV files to binary format (.zcd files):
+- Repeat Project 1.0 extremes calculation using binary files:
+- Verify identical results across all formats (CSV original, CSV randomized, binary original, binary randomized):
+- Generate demonstration scripts showing equivalency:
+
+## Part 2 Requirements
+
+### 1. Primary Key Index System:
+- In-memory index creation (ZIP code → file offset mapping):
+- Index file writing/reading capabilities:
+- Command line interface (-Z flag for ZIP code searches):
+- Record lookup and display functionality:
+- Handle invalid ZIP code searches with appropriate messages:
+
+### 2. Documentation & Testing:
+- Extensive Doxygen documentation:
+- User guide creation:
+- Design document completion:
+- Test document with demonstration scripts:
+- PDF generation from Doxygen:
