@@ -23,7 +23,7 @@ int main()
     header.setIndexFileName("zipcode_data.idx");
     header.setRecordCount(0);  // Placeholder
 
-    std::vector<FieldDef> fields;
+    std::vector<FieldDef> fields; //defines fields and lengths and adds them to a vector
     fields.push_back({"zipcode", 1});
     fields.push_back({"location", 3});
     fields.push_back({"county", 3});
@@ -31,7 +31,7 @@ int main()
     fields.push_back({"latitude", 2});
     fields.push_back({"longitude", 2});
 
-    header.setFields(fields);
+    header.setFields(fields); //sets fields of the header
     header.setFieldCount(csvBuffer.EXPECTED_FIELD_COUNT);
     header.setPrimaryKeyField(0);
 
