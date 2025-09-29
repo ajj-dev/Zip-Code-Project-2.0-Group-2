@@ -21,14 +21,14 @@ int main()
         std::cout << "\n=== Assignment Output: Per-State Extremes Table ===\n";
         DataManager mgr;
         // Use the canonical source CSV for the required table output to stdout:
-        mgr.loadFromCsv("CSV_ZipCode_Sort.csv");
+        mgr.loadFromCsv("PT2_CSV_Randomized.csv");
         mgr.computeExtremes();
         mgr.printTable(std::cout); // REQUIRED: directed to standard output
 
         // Optional: demonstrate identical results across differently sorted CSVs
         bool identical = DataManager::verifyIdenticalResults(
-            "CSV_ZipCode_Sort.csv",
-            "CSV_County_Sort.csv"
+            "PT2_CSV_Randomized.csv",
+            "PT2_CSV.csv"
         );
         //prints weather the data is identical accross sorts
         std::cerr << "[Verification] Identical results across sorts? "
