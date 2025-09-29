@@ -13,7 +13,7 @@ bool HeaderBuffer::readHeader(const std::string& filename, HeaderRecord& header)
         return false;
     }
 
-    // Read enough bytes to get to headerSize field ---
+    // Read enough bytes to get to headerSize field
     constexpr size_t MIN_HEADER_READ = 10;
     std::vector<uint8_t> buffer(MIN_HEADER_READ);
 
