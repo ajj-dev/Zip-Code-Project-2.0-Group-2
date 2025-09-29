@@ -147,7 +147,7 @@ std::vector<uint8_t> HeaderRecord::serialize() const
     return data;
 }
 
-HeaderRecord HeaderRecord::deserialize(const uint8_t* data, size_t length)
+HeaderRecord HeaderRecord::deserialize(const uint8_t* data)
 {
    HeaderRecord header;
     size_t offset = 0;

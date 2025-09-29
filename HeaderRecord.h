@@ -20,7 +20,7 @@ class HeaderRecord
 public:
     HeaderRecord(); // Default Constructor
     std::vector<uint8_t> serialize() const; // Convert to binary format
-    static HeaderRecord deserialize(const uint8_t* data, size_t length); // Read from binary format
+    static HeaderRecord deserialize(const uint8_t* data); // Read from binary format
 
     // Getters
      const char* getFileStructureType() const;

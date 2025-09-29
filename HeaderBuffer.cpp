@@ -6,24 +6,41 @@ HeaderBuffer::HeaderBuffer() : errorState(false), lastError("") {}
 
 bool HeaderBuffer::readHeader(const std::string& filename, HeaderRecord& header)
 {
-    std::ifstream file(filename, std::ios::binary);
+     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open())
     {
         setError("Cannot open file: " + filename);
         return false;
     }
-    
-    // Read file into buffer
-    file.seekg(0, std::ios::end);
-    size_t fileSize = file.tellg();
+
+    // Read enough bytes to get to headerSize field ---
+    constexpr size_t MIN_HEADER_READ = 10;
+    std::vector<uint8_t> buffer(MIN_HEADER_READ);
+
+    file.read(reinterpret_cast<char*>(buffer.data()), MIN_HEADER_READ);
+    if (file.gcount() < MIN_HEADER_READ) {
+        setError("File too small to contain a valid header");
+        return false;
+    }
+
+    // Extract headerSize
+    uint32_t headerSize = 0;
+    std::memcpy(&headerSize, buffer.data() + 6, sizeof(headerSize));
+
+    // Read full header based on headerSize 
+    buffer.resize(headerSize);
     file.seekg(0, std::ios::beg);
-    
-    std::vector<uint8_t> buffer(fileSize);
-    file.read(reinterpret_cast<char*>(buffer.data()), fileSize);
+    file.read(reinterpret_cast<char*>(buffer.data()), headerSize);
+    if (file.gcount() < static_cast<std::streamsize>(headerSize)) 
+    {
+        setError("Header incomplete");
+        return false;
+    }
+
     file.close();
-    
+
     // Deserialize header
-    header = HeaderRecord::deserialize(buffer.data(), fileSize);
+    header = HeaderRecord::deserialize(buffer.data());
     return true;
 }
 
