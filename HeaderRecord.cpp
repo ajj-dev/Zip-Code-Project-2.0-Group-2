@@ -179,7 +179,7 @@ HeaderRecord HeaderRecord::deserialize(const uint8_t* data, size_t length)
     memcpy(&fileNameSize, data + offset, sizeof(uint16_t));
     offset += sizeof(uint16_t);
 
-    // Read File Name (FIXED)
+    // Read File Name
     header.indexFileName = std::string(reinterpret_cast<const char*>(data + offset), fileNameSize);
     offset += fileNameSize;
 
