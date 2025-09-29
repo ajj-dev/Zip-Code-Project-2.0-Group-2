@@ -2,11 +2,11 @@
 
 ## Part 1 Requirements
 
-### 1. CSV File Creation & Testing:
-- Create CSV from original XLSX file:
-- Create CSV from row-randomized XLSX file (remove column G first):
-- Verify Project 1.0 works with both CSV files (sequential processing):
-- Confirm identical results between original and randomized data:
+### 1. CSV File Creation & Testing: Done
+- Create CSV from original XLSX file: Done
+- Create CSV from row-randomized XLSX file (remove column G first): Done
+- Verify Project 1.0 works with both CSV files (sequential processing): Done
+- Confirm identical results between original and randomized data: Done
 
 ### 2. Binary File Format Development:
 - HeaderRecord class - Complete with serialization/deserialization: Done
@@ -42,4 +42,5 @@
 - Test document with demonstration scripts:
 
 - PDF generation from Doxygen:
+
 
