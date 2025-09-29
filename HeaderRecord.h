@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <vector>
 
 // Field definition
@@ -64,4 +65,4 @@ private:
     uint8_t primaryKeyField; // Unique Identifier for each field (IE: 0 = Zip Code, 1 = State, 2 = County, etc.)
 };
 
-#endif HEADER_RECORD
+#endif

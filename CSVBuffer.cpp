@@ -28,7 +28,7 @@ CSVBuffer::CSVBuffer()
 CSVBuffer::CSVBuffer(const std::string& filename)
     : lineNumber(0), recordsProcessed(0), errorState(false), lastError("")
 {
-    openFile(filename);
+    openLengthIndicatedFile(filename);
 }
 
 /**
@@ -161,15 +161,16 @@ void CSVBuffer::closeFile()
     recordsProcessed = 0;
     errorState = false;
     lastError = "";
+    isLengthIndicatedMode = false;
 }
 
 // Getter methods
-int CSVBuffer::getCurrentLineNumber() const
+uint32_t CSVBuffer::getCurrentLineNumber() const
 {
     return lineNumber;
 }
 
-int CSVBuffer::getRecordsProcessed() const
+uint32_t CSVBuffer::getRecordsProcessed() const
 {
     return recordsProcessed;
 }
@@ -356,4 +357,101 @@ void CSVBuffer::setError(const std::string& message)
 {
     errorState = true;
     lastError = message;
+}
+
+bool CSVBuffer::openLengthIndicatedFile(const std::string& filename)
+{
+    closeFile();
+    
+    // Use HeaderBuffer to read the header
+    HeaderBuffer headerBuf;
+    if (!headerBuf.readHeader(filename, currentHeader)) {
+        setError("Failed to read header: " + headerBuf.getLastError());
+        return false;
+    }
+    
+    // Now open the file and skip to data section
+    csvFile.open(filename, std::ios::binary);
+    if (!csvFile.is_open()) {
+        setError("Could not open file: " + filename);
+        return false;
+    }
+    
+    // Skip past header to data section
+    csvFile.seekg(currentHeader.getHeaderSize());
+    
+    isLengthIndicatedMode = true;
+    lineNumber = 0;
+    recordsProcessed = 0;
+    errorState = false;
+    
+    return true;
+}
+
+bool CSVBuffer::getNextLengthIndicatedRecord(ZipCodeRecord& record)
+{
+   if (!csvFile.is_open()) 
+   {
+        std::cerr << "DEBUG: File not open" << std::endl;
+        return false;
+    }
+    
+    if (errorState) 
+    {
+        std::cerr << "DEBUG: Error state: " << lastError << std::endl;
+        return false;
+    }
+    
+    if (!isLengthIndicatedMode) 
+    {
+        std::cerr << "DEBUG: Not in length-indicated mode" << std::endl;
+        return false;
+    }
+    
+    if (csvFile.eof()) 
+    {
+        std::cerr << "DEBUG: EOF reached" << std::endl;
+        return false;
+    }
+    
+    // Read length prefix
+    uint32_t recordLen;
+    csvFile.read(reinterpret_cast<char*>(&recordLen), 4);
+    
+    if (csvFile.gcount() != 4) 
+    {
+        std::cerr << "DEBUG: Failed to read 4-byte length" << std::endl;
+        return false;
+    }
+    
+    // Read CSV string
+    std::string csvRecord(recordLen, '\0');
+
+    csvFile.read(&csvRecord[0], recordLen);
+
+    if (csvFile.gcount() != recordLen) 
+    {
+        setError("Failed to read complete record");
+        return false;
+    }
+    
+    // Parse CSV string
+    std::vector<std::string> fields;
+    if (!parseLine(csvRecord, fields)) 
+    {
+        setError("Failed to parse record");
+        std::cerr << "DEBUG: parseLine failed!" << std::endl;
+        return false;
+    }
+
+    if (!fieldsToRecord(fields, record)) 
+    {
+        setError("Failed to convert fields to record");
+        std::cerr << "DEBUG: fieldsToRecord failed! Error: " << lastError << std::endl;
+        return false;
+    }
+    
+    ++recordsProcessed;
+    ++lineNumber;
+    return true;
 }

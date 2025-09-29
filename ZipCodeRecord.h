@@ -123,8 +123,6 @@ public:
     std::vector<uint8_t> serialize() const; // Convert to binary format
     static ZipCodeRecord deserialize(const uint8_t* data, size_t length); // Read from binary format
 
-
-
 private:
     int zipCode; // 5-digit zip code
     std::string locationName; // Town name

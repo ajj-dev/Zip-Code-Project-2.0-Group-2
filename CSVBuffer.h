@@ -2,6 +2,9 @@
 #define CSV_BUFFER_H
 
 #include "ZipCodeRecord.h"
+#include "HeaderRecord.h"
+#include "HeaderBuffer.h"
+#include "stdint.h"
 #include <vector>
 #include <fstream>
 #include <string>
@@ -90,13 +93,13 @@ public:
      * @return Current line number (1-based, excluding header)
      * @details Useful for error reporting and progress tracking
      */
-    int getCurrentLineNumber() const;
+    uint32_t getCurrentLineNumber() const;
     
     /**
      * @brief Get total number of records successfully read
      * @return Count of records processed
      */
-    int getRecordsProcessed() const;
+    uint32_t getRecordsProcessed() const;
     
     /**
      * @brief Check if buffer is in error state
@@ -110,13 +113,30 @@ public:
      */
     std::string getLastError() const;
 
+    /**
+     * @brief Open length-indicated file for reading
+     * @param filename [IN] Path to .zcd file
+     * @param header [OUT] HeaderRecord to populate
+     * @return true if file opened and header read successfully
+     */
+    bool openLengthIndicatedFile(const std::string& filename);
+    
+    /**
+     * @brief Read next record from length-indicated file
+     * @param record [OUT] ZipCodeRecord object to populate
+     * @return true if record was successfully read
+     */
+    bool getNextLengthIndicatedRecord(ZipCodeRecord& record);
+
 private:
     std::ifstream csvFile; // Input file stream
     std::string currentLine; // Current line buffer
-    int lineNumber; // Current line number (1-based)
-    int recordsProcessed; // Count of successfully processed records
+    uint32_t lineNumber; // Current line number (1-based)
+    uint32_t recordsProcessed; // Count of successfully processed records
     bool errorState; // Error flag
+    bool isLengthIndicatedMode;  // Track read mode
     std::string lastError; // Last error message
+    HeaderRecord currentHeader;
     
     /**
      * @brief Skip and validate CSV header row
@@ -175,4 +195,4 @@ private:
     void setError(const std::string& message);
 };
 
-#endif // CSV_BUFFER_H
+#endif // CSV_BUFFER_
