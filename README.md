@@ -9,7 +9,7 @@
 - Confirm identical results between original and randomized data:
 
 ### 2. Binary File Format Development:
-- HeaderRecord class - Complete with serialization/deserialization:
+- HeaderRecord class - Complete with serialization/deserialization: Done
 - ZipCodeRecord serialization - Add serialize()/deserialize() methods:
 - CSV to binary converter - Tool to convert CSV files to length-indicated format (.zcd files):
 - LengthIndicatedBuffer class - New buffer to read/write length-indicated records:
@@ -40,4 +40,5 @@
 - User guide creation:
 - Design document completion:
 - Test document with demonstration scripts:
+
 - PDF generation from Doxygen:
