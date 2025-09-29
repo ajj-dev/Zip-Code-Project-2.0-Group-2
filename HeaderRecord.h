@@ -61,7 +61,7 @@ private:
     uint32_t recordCount; // Total number of records
     uint16_t fieldCount; // Count of fields per record
     std::vector<FieldDef> fields;
-    uint8_t primaryKeyField; // Unique Identifier for each field (IE: 0 = Zip Code, 1 = State, 2 = County, etc.
+    uint8_t primaryKeyField; // Unique Identifier for each field (IE: 0 = Zip Code, 1 = State, 2 = County, etc.)
 };
 
 #endif HEADER_RECORD

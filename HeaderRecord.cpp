@@ -149,6 +149,73 @@ std::vector<uint8_t> HeaderRecord::serialize() const
 
 HeaderRecord HeaderRecord::deserialize(const uint8_t* data, size_t length)
 {
+   HeaderRecord header;
+    size_t offset = 0;
+
+    // Read File Structure Type
+    memcpy(header.fileStructureType, data + offset, 4);
+    offset += 4;
+
+    // Read Version
+    memcpy(&header.version, data + offset, sizeof(uint16_t));
+    offset += sizeof(uint16_t);
+
+    // Read Header Size
+    memcpy(&header.headerSize, data + offset, sizeof(uint32_t));
+    offset += sizeof(uint32_t);
+
+    // Read Size Format Type
+    header.sizeFormatType = data[offset++];
+
+    // Read Size of Sizes
+    memcpy(&header.sizeOfSizes, data + offset, sizeof(uint32_t));
+    offset += sizeof(uint32_t);
+
+    // Read Size Inclusion Flag
+    header.sizeInclusionFlag = data[offset++];
+
+    // Read File Name Size
+    uint16_t fileNameSize;
+    memcpy(&fileNameSize, data + offset, sizeof(uint16_t));
+    offset += sizeof(uint16_t);
+
+    // Read File Name (FIXED)
+    header.indexFileName = std::string(reinterpret_cast<const char*>(data + offset), fileNameSize);
+    offset += fileNameSize;
+
+    // Read Record Count
+    memcpy(&header.recordCount, data + offset, sizeof(uint32_t));
+    offset += sizeof(uint32_t);
+
+    // Read Field Count
+    memcpy(&header.fieldCount, data + offset, sizeof(uint16_t));
+    offset += sizeof(uint16_t);
+
+    // Read Fields Array
+    header.fields.clear();
+    for (uint16_t i = 0; i < header.fieldCount; i++) 
+    {
+        FieldDef field;
+        
+        // Read field name length
+        uint16_t nameLength;
+        memcpy(&nameLength, data + offset, sizeof(uint16_t));
+        offset += sizeof(uint16_t);
+        
+        // Read field name
+        field.name = std::string(reinterpret_cast<const char*>(data + offset), nameLength);
+        offset += nameLength;
+        
+        // Read field type
+        field.type = data[offset++];
+        
+        header.fields.push_back(field);
+    }
+
+    // Read Primary Key Field
+    header.primaryKeyField = data[offset++];
+
+    return header;
 }
 
 // GETTERS
