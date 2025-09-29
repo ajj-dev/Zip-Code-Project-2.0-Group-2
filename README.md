@@ -10,7 +10,7 @@
 
 ### 2. Binary File Format Development:
 - HeaderRecord class - Complete with serialization/deserialization: Done
-- ZipCodeRecord serialization - Add serialize()/deserialize() methods:
+- ZipCodeRecord serialization - Add serialize()/deserialize() methods: Done
 - CSV to binary converter - Tool to convert CSV files to length-indicated format (.zcd files):
 - LengthIndicatedBuffer class - New buffer to read/write length-indicated records:
 - HeaderBuffer class - Buffer specifically for reading/writing header records:
@@ -42,3 +42,4 @@
 - Test document with demonstration scripts:
 
 - PDF generation from Doxygen:
+
