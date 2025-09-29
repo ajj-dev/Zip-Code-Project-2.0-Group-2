@@ -204,3 +204,81 @@ std::ostream& operator<<(std::ostream& outputStream, const ZipCodeRecord& record
        << " (" << record.latitude << ", " << record.longitude << ")";
     return outputStream;
 }
+
+ std::vector<uint8_t> ZipCodeRecord::serialize() const
+ {
+    std::vector<uint8_t> data; // Stores the binary data
+
+    // Zip Code
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&zipCode),
+                reinterpret_cast<const uint8_t*>(&zipCode) + sizeof(zipCode));
+
+    // Location Name Length
+    uint16_t locationNameLength = locationName.length();
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&locationNameLength),
+                reinterpret_cast<const uint8_t*>(&locationNameLength) + sizeof(locationNameLength));
+    // Location Name
+    data.insert(data.end(), locationName.begin(), locationName.end());
+    
+    // County Name Length
+    uint16_t countyLength = county.length();
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&countyLength),
+                reinterpret_cast<const uint8_t*>(&countyLength) + sizeof(countyLength));
+    // County Name
+    data.insert(data.end(), county.begin(), county.end());
+
+    // State
+    data.insert(data.end(), state, state + 3);
+
+    // Latitude
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&latitude),
+                reinterpret_cast<const uint8_t*>(&latitude) + sizeof(latitude));
+
+    // Longitude
+    data.insert(data.end(), reinterpret_cast<const uint8_t*>(&longitude),
+                reinterpret_cast<const uint8_t*>(&longitude) + sizeof(longitude));
+
+    return data;
+ }
+
+ ZipCodeRecord ZipCodeRecord::deserialize(const uint8_t* data, size_t length)
+ {
+    ZipCodeRecord record;
+    size_t offset = 0;
+
+    // Read Zipcode
+    memcpy(&record.zipCode, data + offset, sizeof(int));
+    offset += sizeof(int);
+
+    // Read Location Name Length
+    uint16_t locationNameLength;
+    memcpy(&locationNameLength, data + offset, sizeof(uint16_t));
+    offset += sizeof(uint16_t);
+
+    // Read Location Name
+    record.locationName = std::string(reinterpret_cast<const char*>(data + offset), locationNameLength);
+    offset += locationNameLength;
+
+    // Read County Name Length
+    uint16_t countyNameLength;
+    memcpy(&countyNameLength, data + offset, sizeof(uint16_t));
+    offset += sizeof(uint16_t);
+
+    // Read County Name
+    record.county = std::string(reinterpret_cast<const char*>(data + offset), countyNameLength);
+    offset += countyNameLength;
+
+    // Read State
+    memcpy(record.state, data + offset, 3);
+    offset += 3;
+
+    // Read Latitude
+    memcpy(&record.latitude, data + offset, sizeof(double));
+    offset += sizeof(double);
+
+    // Read Longitude
+    memcpy(&record.longitude, data + offset, sizeof(double));
+    offset += sizeof(double);
+
+    return record;
+ }

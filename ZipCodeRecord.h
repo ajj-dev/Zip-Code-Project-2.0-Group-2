@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include "stdint.h"
 
 /**
  * @file ZipCodeRecord.h
@@ -118,13 +120,18 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& outputStream, const ZipCodeRecord& record);
 
+    std::vector<uint8_t> serialize() const; // Convert to binary format
+    static ZipCodeRecord deserialize(const uint8_t* data, size_t length); // Read from binary format
+
+
+
 private:
     int zipCode; // 5-digit zip code
+    std::string locationName; // Town name
+    std::string county; // County name
+    char state[3]; // Two-character state code + null terminator
     double latitude; // Latitude coordinate
     double longitude; // Longitude coordinate  
-    std::string locationName; // Town name
-    char state[3]; // Two-character state code + null terminator
-    std::string county; // County name
 };
 
 #endif // ZIP_CODE_RECORD_H
