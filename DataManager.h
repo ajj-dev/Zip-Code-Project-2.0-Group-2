@@ -70,7 +70,11 @@ public:
 private:
     std::vector<ZipCodeRecord> records_;
     std::unordered_map<std::string, Extremes> stateExtremes_;
-
+    /**
+     * @brief updates the extremes
+     * @param ex the extremes being updated
+     * @param rec ZipCodeRecord being processed
+     */
     static void updateExtremes(Extremes& ex, const ZipCodeRecord& rec);
 };
 #endif
