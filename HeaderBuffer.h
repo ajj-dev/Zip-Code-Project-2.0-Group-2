@@ -4,6 +4,20 @@
 #include "HeaderRecord.h"
 #include <string>
 
+/**
+ * @file HeaderBuffer.h
+ * @author Group 2
+ * @brief HeaderBuffer class for reading header information
+ * @version 0.1
+ * @date 2025-10-02
+ */
+
+
+ /**
+ * @class HeaderBuffer
+ * @brief Buffered reader for processing file headers
+ * @details reads, writes, and checks for errors of file headers
+ */
 class HeaderBuffer 
 {
 public:

@@ -7,6 +7,14 @@
 #include <string>
 #include <cstring>
 #include <vector>
+/**
+ * @file HeaderRecord.h
+ * @author Group 2
+ * @brief HeaderRecord class for storing header information
+ * @version 0.1
+ * @date 2025-10-02
+ */
+
 
 // Field definition
 struct FieldDef 
@@ -15,6 +23,11 @@ struct FieldDef
     uint8_t type;     // 1=int, 2=float, 3=string, etc.
 };
 
+/**
+ * @class ZipCodeRecord
+ * @brief Represents the information in the header of a file
+ * @details Stores file structure type, file version, header size, size Format Type, size of sizes, size inclusion flags, index file names, record count, field count, fields and the primary key field
+ */
 class HeaderRecord
 {
 public:
