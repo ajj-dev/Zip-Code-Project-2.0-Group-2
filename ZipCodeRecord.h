@@ -70,18 +70,77 @@ public:
      * @post zipCode is updated if valid
      */
     bool setZipCode(const int inZipCode);
+    /**
+     * @brief Set Latitude code value
+     * @param inLatitude [DOUB] new latitude value
+     * @return true if valid latitute, false otherwise
+     * @pre inLatitude must be in the range -90.0-90.0
+     * @post latitude is updated if valid
+     */
     bool setLatitude(const double inLatitude);
+    /**
+     * @brief Set Longitude code value
+     * @param inLongitude [DOUB] new latitude value
+     * @return true if valid Longitude, false otherwise
+     * @pre inLongitude must be in the range -90.0-90.0
+     * @post longitude is updated if valid
+     */
     bool setLongitude(const double inLongitude);
+    /**
+     * @brief Set Location name value
+     * @param inLocationName [STR] new location name
+     * @return true if valid location name, false otherwise
+     * @pre inLocationName must have a length less than 100 and not be empty
+     * @post locationName is updated if valid
+     */
     bool setLocationName(const std::string& inLocationName);
+    /**
+     * @brief Set state code value
+     * @param inState [STR] new state code
+     * @return true if valid state code, false otherwise
+     * @pre inState must have a length is 2
+     * @post state is updated if valid
+     */
     bool setState(const std::string& inState);
+    /**
+     * @brief Set county name value
+     * @param inCounty [STR] new county name
+     * @return true if valid county name, false otherwise
+     * @pre inCounty must have a length less than 50 and not be empty
+     * @post county is updated if valid
+     */
     bool setCounty(const std::string& inCounty);
 
     // Getters
+    /**
+     * @brief Zipcode Getter
+     * @return zipcode
+     */
     int getZipCode() const;
+    /**
+     * @brief Latitude Getter
+     * @return latitude
+     */
     double getLatitude() const;
+    /**
+     * @brief Longitude Getter
+     * @return longitude
+     */
     double getLongitude() const;
+    /**
+     * @brief Location Name Getter
+     * @return locationName
+     */
     std::string getLocationName() const;
+    /**
+     * @brief State Code Getter
+     * @return state
+     */
     const char* getState() const;
+    /**
+     * @brief County Name Getter
+     * @return county
+     */
     std::string getCounty() const;
     
     /**
@@ -119,8 +178,18 @@ public:
      * @return Reference to output stream
      */
     friend std::ostream& operator<<(std::ostream& outputStream, const ZipCodeRecord& record);
-
+    
+    /**
+     * @brief Serialize
+     * @return Serializes the Zipcode record represented by the ZipCodeRecord and returns that as a uint8_t vector
+     */
     std::vector<uint8_t> serialize() const; // Convert to binary format
+    /**
+     * @brief deserialize
+     * @param data the serialized ZipCodeRecord
+     * @param length the length of data
+     * @return converts data into a ZipCodeRecord and returns that
+     */
     static ZipCodeRecord deserialize(const uint8_t* data, size_t length); // Read from binary format
 
 private:
