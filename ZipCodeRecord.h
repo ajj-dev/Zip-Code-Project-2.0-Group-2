@@ -82,7 +82,7 @@ public:
      * @brief Set Longitude code value
      * @param inLongitude [DOUB] new latitude value
      * @return true if valid Longitude, false otherwise
-     * @pre inLongitude must be in the range -90.0-90.0
+     * @pre inLongitude must be in the range -180.0-180.0
      * @post longitude is updated if valid
      */
     bool setLongitude(const double inLongitude);

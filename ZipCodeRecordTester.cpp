@@ -6,7 +6,7 @@
 
 
 int main(){
-    int zipCode = 4000;
+    int zipCode = 40000;
     double latlong = 40.0;
     std::string place = "Test City";
     std::string state = "TS";
@@ -15,7 +15,7 @@ int main(){
     std::cout << "Constructor Tests:\n";
     ZipCodeRecord a;
     ZipCodeRecord b(zipCode, latlong, latlong, place, state, county);
-    std::cout << "Success!\n\n";
+    std::cout << "Success! (Hopefully)\n\n";
     std::cout << "Getter Tests:\n";
     std::cout << "Get ZipCode: " << (zipCode == b.getZipCode()) << "\n";
     std::cout << "Get Latitude: " << (latlong == b.getLatitude()) << "\n";
@@ -26,9 +26,26 @@ int main(){
     std::cout << "Success!\n\n";
     std::cout << "Setter Tests:\n";
     std::cout << "Set ZipCode: " << (a.setZipCode(zipCode) && zipCode == a.getZipCode()) << "\n";
+    std::cout << "Set ZipCode Fail Test (Under limit): " << !(a.setZipCode(-1)) << "\n";
+    std::cout << "Set ZipCode Fail Test (Over limit): " << !(a.setZipCode(100000)) << "\n";
     std::cout << "Set Latitude: " << (a.setLatitude(latlong) && latlong == a.getLatitude()) << "\n";
+    std::cout << "Set Latitude Fail Test (Under limit): " << !(a.setLatitude(-91.0)) << "\n";
+    std::cout << "Set Latitude Fail Test (Over limit): " << !(a.setLatitude(91.0)) << "\n";
     std::cout << "Set Longitude: " << (a.setLongitude(latlong) && latlong == a.getLongitude()) << "\n";
+    std::cout << "Set Longitude Fail Test (Under limit): " << !(a.setLongitude(-181.0)) << "\n";
+    std::cout << "Set Longitude Fail Test (Over limit): " << !(a.setLongitude(181.0)) << "\n";
     std::cout << "Set Location Name: " << (a.setLocationName(place) && place == a.getLocationName()) << "\n";
+    std::cout << "Set Location Name Fail Test (Too Short): " << !(a.setLocationName("")) << "\n";
+    std::string toLong = "";
+    for(int i = 0; i < 101; i++) toLong += " ";
+    std::cout << "Set Location Name Fail Test (Too Long): " << !(a.setLocationName(toLong)) << "\n";
     std::cout << "Set State Code: " << (a.setState(state) && state == a.getState()) << "\n";
+    std::cout << "Set State Code Fail Test (Too Short): " << !(a.setState("")) << "\n";
+    std::cout << "Set State Code Fail Test (Too Long): " << !(a.setState("Too Long")) << "\n";
     std::cout << "Set County Name: " << (a.setCounty(county) && county == a.getCounty()) << "\n";
+    std::cout << "Set County Name Fail Test (Too Short): " << !(a.setCounty("")) << "\n";
+    toLong = "";
+    for(int i = 0; i < 51; i++) toLong += " ";
+    std::cout << "Set County Name Fail Test (Too Short): " << !(a.setCounty(toLong)) << "\n";
+    std::cout << "Success! (Hopefully)\n\n";
 }
