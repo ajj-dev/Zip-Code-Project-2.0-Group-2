@@ -180,7 +180,7 @@ bool ZipCodeRecord::isNorthOf(const ZipCodeRecord& other) const
 
 bool ZipCodeRecord::isEastOf(const ZipCodeRecord& other) const
 {
-    return longitude < other.longitude; // East means smaller longitude (more negative in US)
+    return longitude > other.longitude; // East means larger longitude (less negative/more positive in US)
 }
 
 bool ZipCodeRecord::isSouthOf(const ZipCodeRecord& other) const
@@ -190,7 +190,7 @@ bool ZipCodeRecord::isSouthOf(const ZipCodeRecord& other) const
 
 bool ZipCodeRecord::isWestOf(const ZipCodeRecord& other) const
 {
-    return longitude > other.longitude; // West means larger longitude (less negative/more positive in US)
+    return longitude < other.longitude; // West means smaller longitude (more negative in US)
 }
 
 // Stream output operator

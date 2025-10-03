@@ -58,8 +58,8 @@ int main(){
     b.setLatitude(90.0);
     std::cout << "Is North Of: " << (b.isNorthOf(a)) << "\n";
     std::cout << "Is Not North Of: " << !(a.isNorthOf(b)) << "\n";
-    std::cout << "Is South Of: " << (a.isNorthOf(b)) << "\n";
-    std::cout << "Is Not South Of: " << !(b.isNorthOf(a)) << "\n";
+    std::cout << "Is South Of: " << (a.isSouthOf(b)) << "\n";
+    std::cout << "Is Not South Of: " << !(b.isSouthOf(a)) << "\n";
     a.setLongitude(-90.0);
     b.setLongitude(90.0);
     std::cout << "Is East Of: " << (b.isEastOf(a)) << "\n";
