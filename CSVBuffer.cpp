@@ -365,14 +365,16 @@ bool CSVBuffer::openLengthIndicatedFile(const std::string& filename)
     
     // Use HeaderBuffer to read the header
     HeaderBuffer headerBuf;
-    if (!headerBuf.readHeader(filename, currentHeader)) {
+    if (!headerBuf.readHeader(filename, currentHeader)) 
+    {
         setError("Failed to read header: " + headerBuf.getLastError());
         return false;
     }
     
-    // Now open the file and skip to data section
+    // Open the file and skip to data section
     csvFile.open(filename, std::ios::binary);
-    if (!csvFile.is_open()) {
+    if (!csvFile.is_open()) 
+    {
         setError("Could not open file: " + filename);
         return false;
     }

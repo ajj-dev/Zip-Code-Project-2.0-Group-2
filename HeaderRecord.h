@@ -36,6 +36,8 @@ public:
      * @details Initializes all fields to default values
      */
     HeaderRecord(); // Default Constructor
+    
+    ~HeaderRecord();
     /**
      * @brief serialize
      * @details returns the header in binary format

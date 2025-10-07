@@ -18,7 +18,8 @@ bool HeaderBuffer::readHeader(const std::string& filename, HeaderRecord& header)
     std::vector<uint8_t> buffer(MIN_HEADER_READ);
 
     file.read(reinterpret_cast<char*>(buffer.data()), MIN_HEADER_READ);
-    if (file.gcount() < MIN_HEADER_READ) {
+    if (file.gcount() < MIN_HEADER_READ) 
+    {
         setError("File too small to contain a valid header");
         return false;
     }

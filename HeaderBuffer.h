@@ -26,6 +26,8 @@ public:
      * @details Initializes header buffer
      */
     HeaderBuffer();
+
+    ~HeaderBuffer();
     
     /**
      * @brief read header

@@ -4,6 +4,10 @@ HeaderRecord::HeaderRecord()
 {
 }
 
+HeaderRecord::~HeaderRecord()
+{
+}
+
 std::vector<uint8_t> HeaderRecord::serialize() const
 {
 /*
