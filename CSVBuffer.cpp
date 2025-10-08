@@ -25,10 +25,10 @@ CSVBuffer::CSVBuffer()
  * @brief Constructor with filename
  * @details Automatically opens file and skips header
  */
-CSVBuffer::CSVBuffer(const std::string& filename)
+CSVBuffer::CSVBuffer(const std::string& filename, const uint32_t headerSize)
     : lineNumber(0), recordsProcessed(0), errorState(false), lastError("")
 {
-    openLengthIndicatedFile(filename);
+    openLengthIndicatedFile(filename, headerSize);
 }
 
 /**
@@ -359,28 +359,18 @@ void CSVBuffer::setError(const std::string& message)
     lastError = message;
 }
 
-bool CSVBuffer::openLengthIndicatedFile(const std::string& filename)
+bool CSVBuffer::openLengthIndicatedFile(const std::string& filename, uint32_t headerSize)
 {
     closeFile();
     
-    // Use HeaderBuffer to read the header
-    HeaderBuffer headerBuf;
-    if (!headerBuf.readHeader(filename, currentHeader)) 
-    {
-        setError("Failed to read header: " + headerBuf.getLastError());
-        return false;
-    }
-    
-    // Open the file and skip to data section
     csvFile.open(filename, std::ios::binary);
-    if (!csvFile.is_open()) 
-    {
+    if (!csvFile.is_open()) {
         setError("Could not open file: " + filename);
         return false;
     }
     
     // Skip past header to data section
-    csvFile.seekg(currentHeader.getHeaderSize());
+    csvFile.seekg(headerSize);
     
     isLengthIndicatedMode = true;
     lineNumber = 0;

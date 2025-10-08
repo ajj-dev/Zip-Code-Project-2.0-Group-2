@@ -4,6 +4,11 @@
 
 HeaderBuffer::HeaderBuffer() : errorState(false), lastError("") {}
 
+HeaderBuffer::~HeaderBuffer()
+{
+    // Destructor
+}
+
 bool HeaderBuffer::readHeader(const std::string& filename, HeaderRecord& header)
 {
      std::ifstream file(filename, std::ios::binary);

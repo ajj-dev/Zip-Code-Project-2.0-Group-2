@@ -1,5 +1,6 @@
 #include "HeaderRecord.h"
 #include "CSVBuffer.h"
+#include "HeaderBuffer.h"
 #include "ZipCodeRecord.h"
 #include <iostream>
 
@@ -7,10 +8,15 @@ int main()
 {
     std::string inFileName = "binary_file.zcd";
 
+    HeaderRecord header;
+    HeaderBuffer headerBuffer;
+
+    headerBuffer.readHeader(inFileName, header);
+
     CSVBuffer buffer;
     
     // Open the length-indicated file (which reads header internally)
-    if (!buffer.openLengthIndicatedFile(inFileName)) 
+    if (!buffer.openLengthIndicatedFile(inFileName, header.getHeaderSize())) 
     {
         std::cerr << "Failed to open file: " << buffer.getLastError() << std::endl;
         return 1;
@@ -22,7 +28,7 @@ int main()
     // Read records using the new method
     ZipCodeRecord record;
     int count = 0;
-    while (buffer.getNextLengthIndicatedRecord(record) && count < 5) 
+    while (count < 5 && buffer.getNextLengthIndicatedRecord(record)) 
     {
         std::cout << "Record " << count << ": "
                   << "ZIP=" << record.getZipCode() 

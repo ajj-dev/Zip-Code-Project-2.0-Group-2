@@ -2,8 +2,6 @@
 #define CSV_BUFFER_H
 
 #include "ZipCodeRecord.h"
-#include "HeaderRecord.h"
-#include "HeaderBuffer.h"
 #include "stdint.h"
 #include <vector>
 #include <fstream>
@@ -45,7 +43,7 @@ public:
      * @details Automatically opens the specified file and skips header
      * @post File is open and positioned after header, or error state if failed
      */
-    explicit CSVBuffer(const std::string& filename);
+    explicit CSVBuffer(const std::string& filename, uint32_t headerSize);
     
     /**
      * @brief Destructor
@@ -119,7 +117,7 @@ public:
      * @param header [OUT] HeaderRecord to populate
      * @return true if file opened and header read successfully
      */
-    bool openLengthIndicatedFile(const std::string& filename);
+    bool openLengthIndicatedFile(const std::string& filename, uint32_t headerSize);
     
     /**
      * @brief Read next record from length-indicated file
@@ -136,8 +134,6 @@ private:
     bool errorState; // Error flag
     bool isLengthIndicatedMode;  // Track read mode
     std::string lastError; // Last error message
-    HeaderRecord currentHeader;
-    
     /**
      * @brief Skip and validate CSV header row
      * @return true if header is valid and skipped successfully
