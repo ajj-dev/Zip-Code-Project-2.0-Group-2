@@ -107,6 +107,11 @@ public:
      * @returns primaryKeyField
      */
     uint8_t getPrimaryKeyField() const;
+    /**
+     * @brief Has Valid Index File Getter
+     * @returns hasValidIndexFile
+     */
+    uint8_t getHasValidIndexFile() const;
 
     /**
      * @brief File Structure Type Setter
@@ -181,6 +186,12 @@ public:
      * @param field new field to be added
      */
     void addField(const FieldDef& field);
+    /**
+     * @brief Has Valid Index File Setter
+     * @details sets hasValidIndexFile to hasValid
+     * @param hasValid new hasValidIndexFile value
+     */
+    void setHasValidIndexFile(uint8_t hasValid);
 
 private:
     char fileStructureType[4]; // "ZIPC"
@@ -194,6 +205,7 @@ private:
     uint16_t fieldCount; // Count of fields per record
     std::vector<FieldDef> fields;
     uint8_t primaryKeyField; // Unique Identifier for each field (IE: 0 = Zip Code, 1 = State, 2 = County, etc.)
+    uint8_t hasValidIndexFile;
 };
 
 #endif

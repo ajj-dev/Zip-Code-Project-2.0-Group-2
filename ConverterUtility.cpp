@@ -34,6 +34,7 @@ int main()
     header.setFields(fields); //sets fields of the header
     header.setFieldCount(csvBuffer.EXPECTED_FIELD_COUNT);
     header.setPrimaryKeyField(0);
+    header.setHasValidIndexFile(0); // 0 = No valid index file, 1 = Valid index file present
 
     std::ofstream out(outFileName, std::ios::binary);
 

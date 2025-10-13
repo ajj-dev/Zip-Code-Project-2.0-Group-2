@@ -148,6 +148,9 @@ std::vector<uint8_t> HeaderRecord::serialize() const
     uint32_t trueHeaderSize = data.size();
     memcpy(&data[headerSizePos], &trueHeaderSize, sizeof(trueHeaderSize));
 
+    // Has Valid Index File
+    data.push_back(hasValidIndexFile);
+
     return data;
 }
 
@@ -219,6 +222,9 @@ HeaderRecord HeaderRecord::deserialize(const uint8_t* data)
     // Read Primary Key Field
     header.primaryKeyField = data[offset++];
 
+    // Read Has Valid Index File
+    header.hasValidIndexFile = data[offset++];
+
     return header;
 }
 
@@ -276,6 +282,11 @@ const std::vector<FieldDef>& HeaderRecord::getFields() const
 uint8_t HeaderRecord::getPrimaryKeyField() const
 {
     return primaryKeyField;
+}
+
+uint8_t HeaderRecord::getHasValidIndexFile() const
+{
+    return hasValidIndexFile;
 }
 
 //SETTERS
@@ -338,4 +349,9 @@ void HeaderRecord::addField(const FieldDef& field)
 {
     this->fields.push_back(field);
     this->fieldCount = fields.size();
+}
+
+void HeaderRecord::setHasValidIndexFile(uint8_t hasValid)
+{
+    this->hasValidIndexFile = hasValid;
 }
