@@ -12,6 +12,8 @@
 
 class ZipDataFile {
 public:
+    
+    ZipDataFile();
     /**
      * @brief open file that is the filename
      * @param filename name of file being opened

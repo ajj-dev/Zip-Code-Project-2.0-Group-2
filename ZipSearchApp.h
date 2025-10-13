@@ -13,6 +13,14 @@
 
 class ZipSearchApp {
 public:
+    
+
+
+    ZipSearchApp();
+
+    ZipSearchApp(const ZipDataFile& dataFile);
+
+    void setDataFile(const ZipDataFile& dataFile);
     /**
      * @brief parses command line arguments
      * @param argc size of args
@@ -21,7 +29,7 @@ public:
      */
     bool parseArgs(int argc, char* argv);
     /**
-     * @brief run read and search
+     * @brief run search for 
      */
     void run();
     // not finished
