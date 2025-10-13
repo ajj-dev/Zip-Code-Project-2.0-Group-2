@@ -13,8 +13,18 @@
 
 class ZipSearchApp {
 public:
+    /**
+     * @brief parses command line arguments
+     * @param argc size of args
+     * @param argv argument array
+     * @return true if args are successfully parsed
+     */
     bool parseArgs(int argc, char* argv);
+    /**
+     * @brief run read and search
+     */
     void run();
+    // not finished
     void displayRecord(ZipCodeRecord record, std::ostream out);
 private:
     ZipDataFile dataFile;

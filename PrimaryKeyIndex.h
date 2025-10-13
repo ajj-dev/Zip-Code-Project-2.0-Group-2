@@ -24,11 +24,16 @@
  */
 class PrimaryKeyIndex {
 public:
+    //struct representation of an index entry
+    struct IndexEntry {
+        int zip; //zip code
+        long offset; //byte offset of the record
+    };
     /**
      * @brief reads data from a zip data file and creates a map from it
      * @param dataFile the dataFile being read from
      */
-    void createFromDataFile(ZipDataFile dataFile);
+    void createFromDataFile(const ZipDataFile& dataFile);
     /**
      * @brief saves the index to a binary index file
      * @return true if successful write to file
@@ -58,6 +63,6 @@ public:
     size_t size() const;
     
 private:
-    std::map<int, long> entries; //map of zip codes and byte offsets
+    std::vector<IndexEntry> entries; //map of zip codes and byte offsets
 };
 #endif
