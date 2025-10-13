@@ -1,9 +1,9 @@
 /**
- * @file test_main.cpp  
- * @brief Test program for ZipCodeRecord and CSVBuffer classes
+ * @file main.cpp  
+ * @brief Test program for length-indicated file processing
  * @author Group 2
- * @version 0.1
- * @date 2025-09-11
+ * @version 0.2
+ * @date 2025-10-12
  */
 
 #include "ZipCodeRecord.h"
@@ -12,32 +12,30 @@
 #include <iostream>
 
 /**
- * @brief The main function loads the zipcodes from a csv file, computes the north south east and west extremes and then prints a table. 
- * @post returns 0 on success.
+ * @brief Tests length-indicated file processing, verifies identical results across sorts
+ * @post returns 0 on success
  */
 int main() 
 {
-    try {
-        std::cout << "\n=== Assignment Output: Per-State Extremes Table ===\n";
-        DataManager mgr;
-        // Use the canonical source CSV for the required table output to stdout:
-        mgr.loadFromCsv("PT2_CSV_Randomized.csv");
-        mgr.computeExtremes();
-        mgr.printTable(std::cout); // REQUIRED: directed to standard output
+        std::cout << "\n=== Test 1: Length-Indicated File (Original Order) ===\n";
+        DataManager mgr1;
+        size_t records1 = mgr1.processFromLengthIndicated("NotRandomCSV.zcd");
+        std::cout << "Processed " << records1 << " records\n";
+        mgr1.printTable(std::cout);
 
-        // Optional: demonstrate identical results across differently sorted CSVs
-        bool identical = DataManager::verifyIdenticalResults(
-            "PT2_CSV_Randomized.csv",
-            "PT2_CSV.csv"
-        );
-        //prints weather the data is identical accross sorts
-        std::cerr << "[Verification] Identical results across sorts? "
+        std::cout << "\n=== Test 2: Length-Indicated File (Randomized Order) ===\n";
+        DataManager mgr2;
+        size_t records2 = mgr2.processFromLengthIndicated("Randomized.zcd");
+        std::cout << "Processed " << records2 << " records\n";
+        mgr2.printTable(std::cout);
+
+        // Verify both files produce identical results
+        std::cout << "\n=== Verification Test ===\n";
+        bool identical = DataManager::verifyIdenticalResults("NotRandomCSV.zcd", "Randomized.zcd", true, true);
+        std::cout << "[NotRandomCSV.zcd vs Randomized.zcd] Identical? " 
                   << (identical ? "YES" : "NO") << std::endl;
-    } catch (const std::exception& ex) { 
-        //prints error message on exception
-        std::cerr << "ERROR (DataManager): " << ex.what() << std::endl;
-    }
 
-    std::cout << "All tests completed!"; //success message
+        std::cout << "\n=== All Tests Completed Successfully! ===\n";
+
     return 0;
 }

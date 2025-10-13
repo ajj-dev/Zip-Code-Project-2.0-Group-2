@@ -384,25 +384,21 @@ bool CSVBuffer::getNextLengthIndicatedRecord(ZipCodeRecord& record)
 {
    if (!csvFile.is_open()) 
    {
-        std::cerr << "DEBUG: File not open" << std::endl;
         return false;
     }
     
     if (errorState) 
     {
-        std::cerr << "DEBUG: Error state: " << lastError << std::endl;
         return false;
     }
     
     if (!isLengthIndicatedMode) 
     {
-        std::cerr << "DEBUG: Not in length-indicated mode" << std::endl;
         return false;
     }
     
     if (csvFile.eof()) 
     {
-        std::cerr << "DEBUG: EOF reached" << std::endl;
         return false;
     }
     
@@ -412,7 +408,6 @@ bool CSVBuffer::getNextLengthIndicatedRecord(ZipCodeRecord& record)
     
     if (csvFile.gcount() != 4) 
     {
-        std::cerr << "DEBUG: Failed to read 4-byte length" << std::endl;
         return false;
     }
     
@@ -426,20 +421,18 @@ bool CSVBuffer::getNextLengthIndicatedRecord(ZipCodeRecord& record)
         setError("Failed to read complete record");
         return false;
     }
-    
+
     // Parse CSV string
     std::vector<std::string> fields;
     if (!parseLine(csvRecord, fields)) 
     {
         setError("Failed to parse record");
-        std::cerr << "DEBUG: parseLine failed!" << std::endl;
         return false;
     }
 
     if (!fieldsToRecord(fields, record)) 
     {
         setError("Failed to convert fields to record");
-        std::cerr << "DEBUG: fieldsToRecord failed! Error: " << lastError << std::endl;
         return false;
     }
     

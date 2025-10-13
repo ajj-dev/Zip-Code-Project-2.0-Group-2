@@ -6,7 +6,7 @@
 
 int main()
 {
-    std::string inFileName = "binary_file.zcd";
+    std::string inFileName = "Randomized.zcd";
 
     HeaderRecord header;
     HeaderBuffer headerBuffer;

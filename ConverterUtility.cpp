@@ -9,7 +9,7 @@
 int main()
 {
     std::string inFileName = "PT2_CSV_Randomized.csv";
-    std::string outFileName = "binary_file.zcd";
+    std::string outFileName = "Randomized.zcd";
 
     CSVBuffer csvBuffer;
 

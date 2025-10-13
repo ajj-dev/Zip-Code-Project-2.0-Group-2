@@ -144,12 +144,12 @@ std::vector<uint8_t> HeaderRecord::serialize() const
     // Primary Key Field
     data.push_back(primaryKeyField);
 
+    // Has Valid Index File
+    data.push_back(hasValidIndexFile);
+
     // Calculate Header Size
     uint32_t trueHeaderSize = data.size();
     memcpy(&data[headerSizePos], &trueHeaderSize, sizeof(trueHeaderSize));
-
-    // Has Valid Index File
-    data.push_back(hasValidIndexFile);
 
     return data;
 }
