@@ -45,11 +45,11 @@ public:
      */
     bool read(std::string filename);
     /**
-     * @brief finds zip code in map and returns memory offset
+     * @brief finds zip code in entries and returns memory offsets with the matching zip
      * @param zip zip code being searched for
      * @return memory offset of zip code (-1 if not in memory)
      */
-    std::vector<long> find(int zip);
+    std::vector<size_t> find(int zip);
     /**
      * @brief searches if a zip code is in the map
      * @param zip zip code being searched for

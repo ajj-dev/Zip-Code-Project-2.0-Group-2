@@ -45,9 +45,9 @@ bool PrimaryKeyIndex::read(std::string filename){
     if (!inFile) return false; //fail
     
     // figure out file size
-    inFile.seekg(0, std::ios::end);
-    std::streampos fileSize = inFile.tellg();
-    inFile.seekg(0, std::ios::beg);
+    inFile.seekg(0, std::ios::end); //go to end of file
+    std::streampos fileSize = inFile.tellg(); 
+    inFile.seekg(0, std::ios::beg); // go to begining of file
 
     // how many entries
     size_t entryCount = fileSize / sizeof(IndexEntry);
@@ -64,8 +64,8 @@ bool PrimaryKeyIndex::read(std::string filename){
     return true; //success
 }
 
-std::vector<long> PrimaryKeyIndex::find(int zip){
-    std::vector<long> addressOffsets;
+std::vector<size_t> PrimaryKeyIndex::find(int zip){
+    std::vector<size_t> addressOffsets;
     for(int i = 0; i < size(); i++){
         if(entries[i].zip == zip){
             addressOffsets.push_back(entries[i].offset);
