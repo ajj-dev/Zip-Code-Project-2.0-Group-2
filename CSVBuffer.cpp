@@ -440,3 +440,7 @@ bool CSVBuffer::getNextLengthIndicatedRecord(ZipCodeRecord& record)
     ++lineNumber;
     return true;
 }
+
+size_t CSVBuffer::getMemoryOffset(){
+    return csvFile.tellg(); //gets the memory offset and casts it to long
+}

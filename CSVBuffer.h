@@ -126,6 +126,11 @@ public:
      */
     bool getNextLengthIndicatedRecord(ZipCodeRecord& record);
 
+    /**
+     * @brief getter for memory offset
+     * @return memory offset
+     */
+    size_t getMemoryOffset();
 private:
     std::ifstream csvFile; // Input file stream
     std::string currentLine; // Current line buffer

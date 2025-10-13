@@ -20,18 +20,13 @@ public:
      * @return true if successfully opened
      */
     bool open(std::string filename);
-    /**
-     * @brief reads header into HeaderRecord header using a HeaderBuffer
-     * @return true if successfully read header
-     */
-    bool readHeader();
+    
     /**
      * @brief reads zipcode and memory offset into ZipCodeRecord out
-     * @param offset memory offset
      * @param out Zipcode record being read in
      * @return true if successfully read ZipCode Record
      */
-    bool readRecord(long offset, ZipCodeRecord& out);
+    bool readRecord(ZipCodeRecord& out);
     /**
      * @brief closes file
      */
@@ -41,9 +36,19 @@ public:
      * @return header of files
      */
     HeaderRecord& getHeader();
+    /**
+     * @brief getter for memory offselt
+     * @return memory offset
+     */
+    long tellg() { static_cast<long>(file.tellg()); }//gets the memory offset and casts it to long
     
 private:
     HeaderRecord header;
-    std::fstream file;
+    std::ifstream file;
+    /**
+     * @brief reads header into HeaderRecord header using a HeaderBuffer
+     * @return true if successfully read header
+     */
+    bool readHeader();
 };
 #endif

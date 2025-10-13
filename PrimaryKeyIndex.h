@@ -1,7 +1,7 @@
 #ifndef PRIMARY_KEY_INDEX
 #define PRIMARY_KEY_INDEX
 
-#include "ZipDataFile.h"
+#include "CSVBuffer.h"
 #include <iostream>
 #include <map>
 #include <fstream>
@@ -27,13 +27,13 @@ public:
     //struct representation of an index entry
     struct IndexEntry {
         int zip; //zip code
-        long offset; //byte offset of the record
+        size_t offset; //byte offset of the record
     };
     /**
      * @brief reads data from a zip data file and creates a map from it
      * @param dataFile the dataFile being read from
      */
-    void createFromDataFile(const ZipDataFile& dataFile);
+    void createFromDataFile(CSVBuffer& buffer);
     /**
      * @brief saves the index to a binary index file
      * @return true if successful write to file
@@ -49,7 +49,7 @@ public:
      * @param zip zip code being searched for
      * @return memory offset of zip code (-1 if not in memory)
      */
-    long find(int zip);
+    std::vector<long> find(int zip);
     /**
      * @brief searches if a zip code is in the map
      * @param zip zip code being searched for
