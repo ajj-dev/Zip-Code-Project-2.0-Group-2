@@ -20,8 +20,8 @@
 - Handle variable-length records with size prefixes: Done
 
 ### 4. Integration & Testing:
-- Convert both CSV files to .zcd format:
-- Generate demonstration scripts showing equivalency:
+- Convert both CSV files to .zcd format: Done
+- Generate demonstration scripts showing equivalency: Done
 
 ## Part 2 Requirements
 
@@ -39,6 +39,7 @@
 - Test document with demonstration scripts:
 
 - PDF generation from Doxygen:
+
 
 
 
