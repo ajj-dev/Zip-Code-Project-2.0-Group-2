@@ -1,11 +1,10 @@
 #ifndef ZIP_SEARCH_APP
 #define ZIP_SEARCH_APP
 
-#include "ZipDataFile.h"
 #include "PrimaryKeyIndex.h"
+#include "CSVBuffer.h"
 #include "ZipCodeRecord.h"
 #include <iostream>
-#include <map>
 #include <fstream>
 #include <string>
 #include <cstring>
@@ -18,25 +17,21 @@ public:
 
     ZipSearchApp();
 
-    ZipSearchApp(const ZipDataFile& dataFile);
+    ZipSearchApp(std::string file);
 
-    void setDataFile(const ZipDataFile& dataFile);
+    void setDataFile(std::string file);
     /**
      * @brief parses command line arguments
      * @param argc size of args
      * @param argv argument array
      * @return true if args are successfully parsed
      */
-    bool parseArgs(int argc, char* argv);
-    /**
-     * @brief run search for 
-     */
-    void run();
-    // not finished
-    void displayRecord(ZipCodeRecord record, std::ostream out);
+    bool search(int argc, char* argv[]){
+        
+    }
+    
 private:
-    ZipDataFile dataFile;
+    std::string fileName;
     PrimaryKeyIndex index;
-    std::vector<int> searchZips;
 };
 #endif
