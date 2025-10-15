@@ -179,7 +179,7 @@ private:
      * @param str [IN] String to validate
      * @return true if string is a valid integer
      */
-    bool isValidInteger(const std::string& str) const;
+    bool isValidUInt32(const std::string& str) const;
     
     /**
      * @brief Validate that a string represents a valid double

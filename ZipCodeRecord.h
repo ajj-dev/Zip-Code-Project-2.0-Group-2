@@ -69,7 +69,7 @@ public:
      * @pre inZipCode must be positive
      * @post zipCode is updated if valid
      */
-    bool setZipCode(const int inZipCode);
+    bool setZipCode(const uint32_t inZipCode);
     /**
      * @brief Set Latitude code value
      * @param inLatitude [DOUB] new latitude value
@@ -116,7 +116,7 @@ public:
      * @brief Zipcode Getter
      * @return zipcode
      */
-    int getZipCode() const;
+    uint32_t getZipCode() const;
     /**
      * @brief Latitude Getter
      * @return latitude
@@ -193,7 +193,7 @@ public:
     static ZipCodeRecord deserialize(const uint8_t* data, size_t length); // Read from binary format
 
 private:
-    int zipCode; // 5-digit zip code
+    uint32_t zipCode; // 5-digit zip code
     std::string locationName; // Town name
     std::string county; // County name
     char state[3]; // Two-character state code + null terminator

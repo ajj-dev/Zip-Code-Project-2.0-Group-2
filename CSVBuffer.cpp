@@ -256,11 +256,11 @@ bool CSVBuffer::fieldsToRecord(const std::vector<std::string>& fields, ZipCodeRe
     
     // Validate and convert each field
     // Field 0: Zip Code (integer)
-    if (!isValidInteger(fields[0])) 
+    if (!isValidUInt32(fields[0])) 
     {
         return false;
     }
-    int zipCode = std::stoi(fields[0]);
+    uint32_t zipCode = static_cast<uint32_t>(std::stoul(fields[0]));
     
     // Field 4: Latitude (double)
     if (!isValidDouble(fields[4])) 
@@ -317,13 +317,14 @@ void CSVBuffer::trimString(std::string& str)
 /**
  * @brief Validate that string represents valid integer
  */
-bool CSVBuffer::isValidInteger(const std::string& str) const
+bool CSVBuffer::isValidUInt32(const std::string& str) const
 {
     if (str.empty()) return false;
     
     try 
     {
-        std::stoi(str);
+        long val = std::stol(str);
+        if (val < 0 || val > 4294967295) return false;
         return true;
     } 
     catch (const std::exception&) 
