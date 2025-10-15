@@ -79,7 +79,7 @@ ZipCodeRecord::~ZipCodeRecord()
 }
 
 // Setter implementations
-bool ZipCodeRecord::setZipCode(const int inZipCode)
+bool ZipCodeRecord::setZipCode(const uint32_t inZipCode)
 {
     if (inZipCode > 0 && inZipCode <= 99999) // Valid US zip code range
     {  
@@ -142,7 +142,7 @@ bool ZipCodeRecord::setCounty(const std::string& inCounty)
 }
 
 // Getter implementations
-int ZipCodeRecord::getZipCode() const
+uint32_t ZipCodeRecord::getZipCode() const
 {
     return zipCode;
 }
