@@ -25,9 +25,13 @@
 class PrimaryKeyIndex {
 public:
     //struct representation of an index entry
-    struct IndexEntry {
-        int zip; //zip code
-        size_t offset; //byte offset of the record
+    struct SecondaryIndexEntry {
+        int zip; //secondary 
+        int arrayIndex; // index in array 
+    };
+    struct PrimaryIndexEntry {
+        size_t offset; //memory offset
+        int nextIndex; // next index in array
     };
     /**
      * @brief reads data from a zip data file and creates a map from it
@@ -63,6 +67,15 @@ public:
     size_t size() const;
     
 private:
-    std::vector<IndexEntry> entries; //map of zip codes and byte offsets
+    std::vector<SecondaryIndexEntry> secondaryEntries; //map of zip codes and byte offsets
+    std::vector<PrimaryIndexEntry> primaryEntries;
+    
+    void listMangerAdd(const ZipCodeRecord& zipRecord, const size_t& memoryOffset);
+    int secondaryContains(int zip);  
+    int addSecondarySorted(const SecondaryIndexEntry& entry);
+    int addPrimary(SecondaryIndexEntry& sEntry, const PrimaryIndexEntry& pEntry);
 };
+
 #endif
+
+
