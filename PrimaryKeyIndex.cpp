@@ -22,7 +22,7 @@ void PrimaryKeyIndex::createFromDataFile(CSVBuffer& buffer){
     ZipCodeRecord record;
     size_t dataOffset = buffer.getMemoryOffset();
     while (buffer.getNextLengthIndicatedRecord(record)) { 
-        listMangerAdd(record, dataOffset);
+        listAddManager(record, dataOffset);
     }
 }
 
@@ -35,19 +35,26 @@ bool PrimaryKeyIndex::read(std::string filename){
 }
 
 std::vector<size_t> PrimaryKeyIndex::find(int zip){
-    
+    std::vector<size_t> addresses;
+    int index = secondaryContains(zip); //get index of the zipcode
+    if (index != -1){ //if zip is in secondary key list
+        int index = secondaryEntries[index].arrayIndex;
+        while(primaryEntries[index].nextIndex != -1){
+            addresses.push_back(primaryEntries[index].offset);
+            index = primaryEntries[index].nextIndex;
+        }
+        addresses.push_back(primaryEntries[index].offset);
+        return addresses;
+    }
 }
 
 bool PrimaryKeyIndex::contains(int zip){
-    
+    return (secondaryContains(zip) != -1);
 }
 
-    
-size_t PrimaryKeyIndex::size() const{
 
-}
 
-void PrimaryKeyIndex::listMangerAdd(const ZipCodeRecord& zipRecord, const size_t& memoryOffset){
+void PrimaryKeyIndex::listAddManager(const ZipCodeRecord& zipRecord, const size_t& memoryOffset){
     SecondaryIndexEntry sEntry;
     PrimaryIndexEntry pEntry;
     int sIndex = secondaryContains(zipRecord.getZipCode());

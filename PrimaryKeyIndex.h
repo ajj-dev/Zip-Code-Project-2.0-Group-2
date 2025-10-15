@@ -24,18 +24,19 @@
  */
 class PrimaryKeyIndex {
 public:
-    //struct representation of an index entry
+    //struct representation of a secondary index entry
     struct SecondaryIndexEntry {
-        int zip; //secondary 
+        int zip; //secondary index
         int arrayIndex; // index in array 
     };
+    //struct representation of a primary index entry
     struct PrimaryIndexEntry {
         size_t offset; //memory offset
         int nextIndex; // next index in array
     };
     /**
-     * @brief reads data from a zip data file and creates a map from it
-     * @param dataFile the dataFile being read from
+     * @brief reads data from a cvsbuffer and creates a primary index for it
+     * @param buffer the CSV file reading in the zipcode records
      */
     void createFromDataFile(CSVBuffer& buffer);
     /**
@@ -51,7 +52,7 @@ public:
     /**
      * @brief finds zip code in entries and returns memory offsets with the matching zip
      * @param zip zip code being searched for
-     * @return memory offset of zip code (-1 if not in memory)
+     * @return returns a vector of all of the primaryindexentries of that zip code
      */
     std::vector<size_t> find(int zip);
     /**
@@ -60,19 +61,36 @@ public:
      * @return returns true if in the map
      */
     bool contains(int zip);
-    /**
-     * @brief getter for size of map
-     * @return returns size of the map
-     */
-    size_t size() const;
     
 private:
-    std::vector<SecondaryIndexEntry> secondaryEntries; //map of zip codes and byte offsets
-    std::vector<PrimaryIndexEntry> primaryEntries;
+    std::vector<SecondaryIndexEntry> secondaryEntries; //secondary keys
+    std::vector<PrimaryIndexEntry> primaryEntries; //primary keys
     
-    void listMangerAdd(const ZipCodeRecord& zipRecord, const size_t& memoryOffset);
+
+    /**
+     * @brief manager for adding to primary and secondary entries
+     * @param zipRecord zip code record being added to Index Entry
+     * @param memoryOffset offset of the zipcode record in file
+     */
+    void listAddManager(const ZipCodeRecord& zipRecord, const size_t& memoryOffset);
+    /**
+     * @brief returns index of zip code in secondary index if it contains it
+     * @param zip zip being searched for in secondary
+     * @return index of zipcode in secondary index vector (-1 if not in vector)
+     */
     int secondaryContains(int zip);  
+    /**
+     * @brief handles adding to secondary index vector in a sorted way
+     * @param entry entry being added
+     * @return index of entry in secondary vector
+     */
     int addSecondarySorted(const SecondaryIndexEntry& entry);
+    /**
+     * @brief handles adding to the primary index
+     * @param sEntry secondary index being extended by primary index
+     * @param pEntry primary index being added to primary vector
+     * @return index of entry in secondary vector
+     */
     int addPrimary(SecondaryIndexEntry& sEntry, const PrimaryIndexEntry& pEntry);
 };
 
