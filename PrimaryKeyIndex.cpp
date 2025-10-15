@@ -50,12 +50,13 @@ size_t PrimaryKeyIndex::size() const{
 void PrimaryKeyIndex::listMangerAdd(const ZipCodeRecord& zipRecord, const size_t& memoryOffset){
     SecondaryIndexEntry sEntry;
     PrimaryIndexEntry pEntry;
-    if((secondaryContains(zipRecord.getZipCode()) == -1)){
+    int sIndex = secondaryContains(zipRecord.getZipCode());
+    if((sIndex == -1)){
         sEntry.zip = zipRecord.getZipCode();
         sEntry.arrayIndex = -1; //temp value
         addSecondarySorted(sEntry); //adds entry to secondary array and gets index
     }
-    int sIndex = secondaryContains(zipRecord.getZipCode());
+    
     pEntry.offset = memoryOffset;
     pEntry.nextIndex = -1; //end of list
     addPrimary(secondaryEntries[sIndex], pEntry); //add entry to primary array
