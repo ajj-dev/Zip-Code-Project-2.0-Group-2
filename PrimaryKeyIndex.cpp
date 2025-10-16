@@ -27,11 +27,45 @@ void PrimaryKeyIndex::createFromDataFile(CSVBuffer& buffer){
 }
 
 bool PrimaryKeyIndex::write(std::string filename){
-    
+    std::ofstream out(filename, std::ios::binary);
+    if (!out) return false; //if file cannot be opened return false
+
+    for (auto& s : secondaryEntries) //write all the secondary entries
+        out.write(reinterpret_cast<const char*>(&s), sizeof(s));
+
+    //end of list denoter (impossible zip code)
+    SecondaryIndexEntry sentinel{-9999999, -1}; // end of first list
+    out.write(reinterpret_cast<const char*>(&sentinel), sizeof(sentinel)); //write end of list denoter
+
+    for (auto& p : primaryEntries)
+        out.write(reinterpret_cast<const char*>(&p), sizeof(p));
+
+    out.close();
+    return true;
 }
 
 bool PrimaryKeyIndex::read(std::string filename){
-    
+    std::ifstream in(filename, std::ios::binary);
+    if (!in) return false; //if file cannot be opened return false
+
+    //clear first 2 lists
+    secondaryEntries.clear();
+    primaryEntries.clear();
+
+    //read until end of list denoter
+    SecondaryIndexEntry temp;
+    while (in.read(reinterpret_cast<char*>(&temp), sizeof(temp))) {
+        if (temp.zip == -9999999) break; //if end of first list break
+        secondaryEntries.push_back(temp); //if not add entries to vector
+    }
+
+    //read the rest into the primary vector
+    PrimaryIndexEntry ptemp;
+    while (in.read(reinterpret_cast<char*>(&ptemp), sizeof(ptemp))) {
+        primaryEntries.push_back(ptemp); 
+    }
+
+    return true;
 }
 
 std::vector<size_t> PrimaryKeyIndex::find(int zip){
