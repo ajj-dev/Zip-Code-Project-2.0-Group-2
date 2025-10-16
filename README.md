@@ -37,7 +37,7 @@
 - User guide creation: Half Done
 - Design document completion: Half Done
 - Test document with demonstration scripts: Done
-- PDF generation from Doxygen: In Process
+- PDF generation from Doxygen: Done
 
 
 
