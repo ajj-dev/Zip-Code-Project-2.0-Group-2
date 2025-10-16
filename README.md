@@ -26,11 +26,11 @@
 ## Part 2 Requirements
 
 ### 1. Primary Key Index System:
-- In-memory index creation (ZIP code → file offset mapping):
-- Index file writing/reading capabilities:
-- Command line interface (-Z flag for ZIP code searches):
-- Record lookup and display functionality:
-- Handle invalid ZIP code searches with appropriate messages:
+- In-memory index creation (ZIP code → file offset mapping): Done
+- Index file writing/reading capabilities: Done
+- Command line interface (-Z flag for ZIP code searches): Done
+- Record lookup and display functionality: Done
+- Handle invalid ZIP code searches with appropriate messages: Done
 
 ### 2. Documentation & Testing:
 - Extensive Doxygen documentation:
@@ -39,6 +39,7 @@
 - Test document with demonstration scripts:
 
 - PDF generation from Doxygen:
+
 
 
 
