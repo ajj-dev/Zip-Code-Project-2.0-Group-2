@@ -1,4 +1,4 @@
-﻿# ZipCode Group Project 2.0
+# ZipCode Group Project 2.0
 
 ## Part 1 Requirements
 
@@ -33,12 +33,11 @@
 - Handle invalid ZIP code searches with appropriate messages: Done
 
 ### 2. Documentation & Testing:
-- Extensive Doxygen documentation:
-- User guide creation:
-- Design document completion:
-- Test document with demonstration scripts:
-
-- PDF generation from Doxygen:
+- Extensive Doxygen documentation: Done
+- User guide creation: Half Done
+- Design document completion: Half Done
+- Test document with demonstration scripts: Done
+- PDF generation from Doxygen: In Process
 
 
 
