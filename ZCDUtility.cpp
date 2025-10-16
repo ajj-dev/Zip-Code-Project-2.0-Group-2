@@ -3,6 +3,7 @@
 #include "HeaderBuffer.h"
 #include "CSVBuffer.h"
 #include "ZipCodeRecord.h"
+#include "PrimaryKeyIndex.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -58,6 +59,10 @@ bool convertCSVtoZCD(const std::string& inFile, const std::string& outFile)
     }
     
     auto headerData = header.serialize();
+    header.setHeaderSize(headerData.size());  // ← FIX: Update header size
+    
+    std::cerr << "DEBUG: Serialized header size = " << headerData.size() << "\n";  // ← DEBUG HERE
+    
     out.write(reinterpret_cast<char*>(headerData.data()), headerData.size());
     
     size_t recordCountOffset = 4 + 2 + 4 + 1 + 4 + 1 + 2 + header.getIndexFileName().length();
@@ -72,7 +77,7 @@ bool convertCSVtoZCD(const std::string& inFile, const std::string& outFile)
     
     ZipCodeRecord record;
     while (csvBuffer.getNextRecord(record))
-     {
+    {
         std::string recordStr = std::to_string(record.getZipCode()) + "," +
                                record.getLocationName() + "," +
                                std::string(record.getState()) + "," +
@@ -93,6 +98,37 @@ bool convertCSVtoZCD(const std::string& inFile, const std::string& outFile)
     out.close();
     
     std::cout << "Success: Converted " << actualRecordCount << " records" << std::endl;
+
+    // Reopen for index creation
+    std::cout << "Now generating index file..." << std::endl;
+    if (!csvBuffer.openLengthIndicatedFile(outFile, header.getHeaderSize())) 
+    {
+        std::cerr << "Error: Failed to reopen file for indexing" << std::endl;
+        return false;
+    }
+
+    PrimaryKeyIndex keyIndex;
+    keyIndex.createFromDataFile(csvBuffer);
+    csvBuffer.closeFile();
+
+    if (keyIndex.write(header.getIndexFileName())) 
+    {
+        std::cout << "Success: Index file generated: " << header.getIndexFileName() << std::endl;
+        
+        std::fstream zcdFile(outFile, std::ios::binary | std::ios::in | std::ios::out);
+        uint8_t validFlag = 1;
+        size_t flagOffset = header.getHeaderSize() - 1;
+        
+        zcdFile.seekp(flagOffset);
+        zcdFile.write(reinterpret_cast<char*>(&validFlag), sizeof(uint8_t));
+        
+        zcdFile.close();
+    } 
+    else 
+    {
+        std::cerr << "Error: Failed to write index file" << std::endl;
+        return false;
+    }
     return true;
 }
 

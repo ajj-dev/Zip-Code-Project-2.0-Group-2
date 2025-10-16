@@ -17,18 +17,16 @@ public:
 
     ZipSearchApp();
 
-    ZipSearchApp(std::string file);
+    ZipSearchApp(const std::string& file);
 
-    void setDataFile(std::string file);
+    void setDataFile(const std::string& file);
     /**
      * @brief parses command line arguments
      * @param argc size of args
      * @param argv argument array
      * @return true if args are successfully parsed
      */
-    bool search(int argc, char* argv[]){
-        
-    }
+    bool search(int argc, char* argv[]);
     
 private:
     std::string fileName;

@@ -1,0 +1,335 @@
+Script started on 2025-10-16 14:04:07-05:00 [TERM="xterm-256color" TTY="/dev/pty0" COLUMNS="219" LINES="13"]
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Compilation ==="[27m[C[Cecho "=== Compilation ==="
+[?2004l=== Compilation ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mg++ -o ZipSearch main.cpp ZipSearchApp.cpp PrimaryKeyIndex.cpp CSVBuffer.cpp ZipCodeRecord.cpp HeaderRecord.cpp HeaderBuffer.cpp -std=c++11[27m[C[Cg++ -o ZipSearch main.cpp ZipSearchApp.cpp PrimaryKeyIndex.cpp CSVBuffer.cpp ZipCodeRecord.cpp HeaderRecord.cpp HeaderBuffer.cpp -std=c++11
+[?2004l[6n[6n[?9001h[?1004h[m[?25h[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mg++ -o zcdutil ZCDUtility.cpp PrimaryKeyIndex.cpp CSVBuffer.cpp HeaderRecord.cpp HeaderBuffer.cpp ZipCodeRecord.cpp[27m[C[Cg++ -o zcdutil ZCDUtility.cpp PrimaryKeyIndex.cpp CSVBuffer.cpp HeaderRecord.cpp HeaderBuffer.cpp ZipCodeRecord.cpp
+[?2004l[6n[?9001h[?1004h[m[?25h[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Test 1: Original Sort ==="[27m[C[Cecho "=== Test 1: Original Sort ==="
+[?2004l=== Test 1: Original Sort ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil convert PT2.csv NotRandomCSV.zcd[27m[C[C[C[Czcdutil convert PT2.csv NotRandomCSV.zcd
+[?2004l[6n[?9001h[?1004h[m[?25hDEBUG: Serialized header size = 103
+Converting PT2.csv to NotRandomCSV.zcd...
+Success: Converted 40933 records
+Now generating index file...
+Success: Index file generated: zipcode_data.idx
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701[27m[C[C[C[CZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 96737
+Found at memory offset: 2014031
+Zip: 96737, Location: Ocean View, State: HI, County: Hawaii, Lat: 19.1002, Lon: -155.726
+
+Searching for zip code: 97134
+Found at memory offset: 2025049
+Zip: 97134, Location: Oceanside, State: OR, County: Tillamook, Lat: 45.4549, Lon: -123.965
+
+Searching for zip code: 63701
+Found at memory offset: 1382319
+Zip: 63701, Location: Cape Girardeau, State: MO, County: Cape Girardeau, Lat: 37.3169, Lon: -89.5459
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch NotRandomCSV.zcd -Z100 -Z99999 -Z98466[27m[C[C[C[CZipSearch NotRandomCSV.zcd -Z100 -Z99999 -Z98466
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 100
+Zip code 100 not found.
+Searching for zip code: 99999
+Zip code 99999 not found.
+Searching for zip code: 98466
+Found at memory offset: 2060293
+Zip: 98466, Location: Tacoma, State: WA, County: Pierce, Lat: 47.228, Lon: -122.54
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Test 2: Randomized Sort ==="[27m[C[Cecho "=== Test 2: Randomized Sort ==="
+[?2004l=== Test 2: Randomized Sort ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil convert PT2_Randomized.csv Randomized.zcd[27m[C[C[C[Czcdutil convert PT2_Randomized.csv Randomized.zcd
+[?2004l[6n[?9001h[?1004h[m[?25hDEBUG: Serialized header size = 103
+Converting PT2_Randomized.csv to Randomized.zcd...
+Success: Converted 40933 records
+Now generating index file...
+Success: Index file generated: zipcode_data.idx
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch Randomized.zcd -Z96737 -Z97134 -Z63701[27m[C[C[C[CZipSearch Randomized.zcd -Z96737 -Z97134 -Z63701
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 96737
+Found at memory offset: 103
+Zip: 96737, Location: Ocean View, State: HI, County: Hawaii, Lat: 19.1002, Lon: -155.726
+
+Searching for zip code: 97134
+Found at memory offset: 155
+Zip: 97134, Location: Oceanside, State: OR, County: Tillamook, Lat: 45.4549, Lon: -123.965
+
+Searching for zip code: 63701
+Found at memory offset: 209
+Zip: 63701, Location: Cape Girardeau, State: MO, County: Cape Girardeau, Lat: 37.3169, Lon: -89.5459
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch Randomized.zcd -Z100 -Z99999 -Z98466[27m[C[C[C[CZipSearch Randomized.zcd -Z100 -Z99999 -Z98466
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 100
+Zip code 100 not found.
+Searching for zip code: 99999
+Zip code 99999 not found.
+Searching for zip code: 98466
+Found at memory offset: 1828997
+Zip: 98466, Location: Tacoma, State: WA, County: Pierce, Lat: 47.228, Lon: -122.54
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Test 3: Place Sort ==="[27m[C[Cecho "=== Test 3: Place Sort ==="
+[?2004l=== Test 3: Place Sort ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil convert PT2_Place_Sort.csv PlaceSort.zcd[27m[C[C[C[Czcdutil convert PT2_Place_Sort.csv PlaceSort.zcd
+[?2004l[6n[?9001h[?1004h[m[?25hDEBUG: Serialized header size = 103
+Converting PT2_Place_Sort.csv to PlaceSort.zcd...
+Success: Converted 40933 records
+Now generating index file...
+Success: Index file generated: zipcode_data.idx
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch PlaceSort.zcd -Z96737 -Z97134 -Z63701[27m[C[C[C[CZipSearch PlaceSort.zcd -Z96737 -Z97134 -Z63701
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 96737
+Found at memory offset: 1360925
+Zip: 96737, Location: Ocean View, State: HI, County: Hawaii, Lat: 19.1002, Lon: -155.726
+
+Searching for zip code: 97134
+Found at memory offset: 1361618
+Zip: 97134, Location: Oceanside, State: OR, County: Tillamook, Lat: 45.4549, Lon: -123.965
+
+Searching for zip code: 63701
+Found at memory offset: 276432
+Zip: 63701, Location: Cape Girardeau, State: MO, County: Cape Girardeau, Lat: 37.3169, Lon: -89.5459
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch PlaceSort.zcd -Z100 -Z99999 -Z98466[27m[C[C[C[CZipSearch PlaceSort.zcd -Z100 -Z99999 -Z98466
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 100
+Zip code 100 not found.
+Searching for zip code: 99999
+Zip code 99999 not found.
+Searching for zip code: 98466
+Found at memory offset: 1842507
+Zip: 98466, Location: Tacoma, State: WA, County: Pierce, Lat: 47.228, Lon: -122.54
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Test 4: State Sort ==="[27m[C[Cecho "=== Test 4: State Sort ==="
+[?2004l=== Test 4: State Sort ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil convert PT2_State_Sort.csv StateSort.zcd[27m[C[C[C[Czcdutil convert PT2_State_Sort.csv StateSort.zcd
+[?2004l[6n[?9001h[?1004h[m[?25hDEBUG: Serialized header size = 103
+Converting PT2_State_Sort.csv to StateSort.zcd...
+Success: Converted 40933 records
+Now generating index file...
+Success: Index file generated: zipcode_data.idx
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch StateSort.zcd -Z96737 -Z97134 -Z63701[27m[C[C[C[CZipSearch StateSort.zcd -Z96737 -Z97134 -Z63701
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 96737
+Found at memory offset: 462726
+Zip: 96737, Location: Ocean View, State: HI, County: Hawaii, Lat: 19.1002, Lon: -155.726
+
+Searching for zip code: 97134
+Found at memory offset: 1506785
+Zip: 97134, Location: Oceanside, State: OR, County: Tillamook, Lat: 45.4549, Lon: -123.965
+
+Searching for zip code: 63701
+Found at memory offset: 989326
+Zip: 63701, Location: Cape Girardeau, State: MO, County: Cape Girardeau, Lat: 37.3169, Lon: -89.5459
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch StateSort.zcd -Z100 -Z99999 -Z98466[27m[C[C[C[CZipSearch StateSort.zcd -Z100 -Z99999 -Z98466
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 100
+Zip code 100 not found.
+Searching for zip code: 99999
+Zip code 99999 not found.
+Searching for zip code: 98466
+Found at memory offset: 1994697
+Zip: 98466, Location: Tacoma, State: WA, County: Pierce, Lat: 47.228, Lon: -122.54
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Test 5: Index Regeneration ==="[27m[C[Cecho "=== Test 5: Index Regeneration ==="
+[?2004l=== Test 5: Index Regeneration ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mdel zipcode_data.idx[27m[C[C[1Pdel zipcode_data.id[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Krim zip[K[K[K[K[K[Km zipcode_data,[K.idx
+[?2004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701[27m[C[C[C[CZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file not found or invalid. Creating index from data file: NotRandomCSV.zcd
+Index File Written Succesfully.
+
+Header updated with index file info.
+
+Searching for zip code: 96737
+Found at memory offset: 2014031
+Zip: 96737, Location: Ocean View, State: HI, County: Hawaii, Lat: 19.1002, Lon: -155.726
+
+Searching for zip code: 97134
+Found at memory offset: 2025049
+Zip: 97134, Location: Oceanside, State: OR, County: Tillamook, Lat: 45.4549, Lon: -123.965
+
+Searching for zip code: 63701
+Found at memory offset: 1382319
+Zip: 63701, Location: Cape Girardeau, State: MO, County: Cape Girardeau, Lat: 37.3169, Lon: -89.5459
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701[27m[C[C[1PZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z6370[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K./[7mZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701[27m[C[C[C[CZipSearch NotRandomCSV.zcd -Z96737 -Z97134 -Z63701
+[?2004l[6n[?9001h[?1004h[m[?25hIndex file read successfully.
+
+Searching for zip code: 96737
+Found at memory offset: 2014031
+Zip: 96737, Location: Ocean View, State: HI, County: Hawaii, Lat: 19.1002, Lon: -155.726
+
+Searching for zip code: 97134
+Found at memory offset: 2025049
+Zip: 97134, Location: Oceanside, State: OR, County: Tillamook, Lat: 45.4549, Lon: -123.965
+
+Searching for zip code: 63701
+Found at memory offset: 1382319
+Zip: 63701, Location: Cape Girardeau, State: MO, County: Cape Girardeau, Lat: 37.3169, Lon: -89.5459
+
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mecho "=== Test 6: Header Verification ==="[27m[C[Cecho "=== Test 6: Header Verification ==="
+[?2004l=== Test 6: Header Verification ===
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [7mzcdutil header NotRandomCSV.zcd[27m[C[Czcdutil header NotRandomCSV.zcd
+[?2004lbash: zcdutil: command not found
+[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil header NotRandomCSV.zcd[27m[C[C[C[Czcdutil header NotRandomCSV.zcd
+[?2004l[6n[?9001h[?1004h[m[?25h
+=== ZCD File Header Information ===
+File: NotRandomCSV.zcd
+File Structure Type: ZIPC
+Version: 1
+Header Size: 103 bytes
+Size Format Type: 0 (0=ASCII, 1=Binary)
+Size of Sizes: 4 bytes
+Index File: zipcode_data.idx
+Has Valid Index: Yes
+Record Count: 40933
+Field Count: 6
+Primary Key Field: 0
+
+Fields:
+  [0] zipcode (type=1)
+  [1] location (type=3)
+  [2] state (type=4)
+  [3] county (type=3)
+  [4] latitude (type=2)
+  [5] longitude (type=2)
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil header Randomized.zcd[27m[C[C[C[Czcdutil header Randomized.zcd
+[?2004l[6n[?9001h[?1004h[m[?25h
+=== ZCD File Header Information ===
+File: Randomized.zcd
+File Structure Type: ZIPC
+Version: 1
+Header Size: 103 bytes
+Size Format Type: 0 (0=ASCII, 1=Binary)
+Size of Sizes: 4 bytes
+Index File: zipcode_data.idx
+Has Valid Index: Yes
+Record Count: 40933
+Field Count: 6
+Primary Key Field: 0
+
+Fields:
+  [0] zipcode (type=1)
+  [1] location (type=3)
+  [2] state (type=4)
+  [3] county (type=3)
+  [4] latitude[1C(type=2)
+  [5] longitude (type=2)
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil header PlaceSort.zcd[27m[C[C[C[Czcdutil header PlaceSort.zcd
+[?2004l[6n[?9001h[?1004h[m[?25h
+=== ZCD File Header Information ===
+File: PlaceSort.zcd
+File Structure Type: ZIPC
+Version: 1
+Header Size: 103 bytes
+Size Format Type: 0 (0=ASCII, 1=Binary)
+Size of Sizes: 4 bytes
+Index File: zipcode_data.idx
+Has Valid Index: Yes
+Record Count: 40933
+Field Count: 6
+Primary Key Field: 0
+
+Fields:
+  [0] zipcode (type=1)
+  [1] location (type=3)
+  [2] state (type=4)
+  [3] county (type=3)
+  [4] latitude (type=2)
+  [5] longitude (type=2)
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ ./[7mzcdutil header StateSort.zcd[27m
+[A[C[C[C[Czcdutil header StateSort.zcd
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l[6n[?9001h[?1004h[m[?25h
+=== ZCD File Header Information ===
+File: StateSort.zcd
+File Structure Type: ZIPC
+Version: 1
+Header Size: 103 bytes
+Size Format Type: 0 (0=ASCII, 1=Binary)
+Size of Sizes: 4 bytes
+Index File: zipcode_data.idx
+Has Valid Index: Yes
+Record Count: 40933
+Field Count: 6
+Primary Key Field: 0
+
+Fields:
+  [0] zipcode (type=1)
+  [1] location (type=3)
+  [2] state (type=4)
+  [3] county (type=3)
+  [4] latitude (type=2)
+  [5] longitude (type=2)
+[?9001l[?1004l[?2004h]0;/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2
+[32mPcNub@DESKTOP-N1DVLGT [33m/cygdrive/c/Users/PcNub/OneDrive/Documents/College/SoftwareSystems/ZipCodeProject-2.0/Zip-Code-Project-2.0-Group-2[0m
+$ [?2004l
+exit
+
+Script done on 2025-10-16 14:08:04-05:00 [COMMAND_EXIT_CODE="0"]

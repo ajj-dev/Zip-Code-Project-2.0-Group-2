@@ -131,6 +131,15 @@ public:
      * @return memory offset
      */
     size_t getMemoryOffset();
+
+    /**
+     * @brief reads a record at a specific memory address
+     * @param address the memory address of the record being read
+     * @param record the ZipCodeRecord being populated
+     * @return true if successfuly reads the record
+     */
+    bool readRecordAtMemoryAddress(const size_t address, ZipCodeRecord& record);
+
 private:
     std::ifstream csvFile; // Input file stream
     std::string currentLine; // Current line buffer

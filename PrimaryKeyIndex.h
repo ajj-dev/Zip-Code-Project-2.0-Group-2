@@ -8,6 +8,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include "stdint.h"
 
 /**
  * @file PrimaryKeyIndex.h
@@ -43,24 +44,24 @@ public:
      * @brief saves the index to a binary index file
      * @return true if successful write to file
      */
-    bool write(std::string filename);
+    bool write(const std::string& filename);
     /**
      * @brief reads index from a binary index file
      * @return true if successfuly reads from file
      */
-    bool read(std::string filename);
+    bool read(const std::string& filename);
     /**
      * @brief finds zip code in entries and returns memory offsets with the matching zip
      * @param zip zip code being searched for
      * @return returns a vector of all of the primaryindexentries of that zip code
      */
-    std::vector<size_t> find(int zip);
+    std::vector<size_t> find(const uint32_t zip) const;
     /**
      * @brief searches if a zip code is in the map
      * @param zip zip code being searched for
      * @return returns true if in the map
      */
-    bool contains(int zip);
+    bool contains(const uint32_t zip) const;
     
 private:
     std::vector<SecondaryIndexEntry> secondaryEntries; //secondary keys
@@ -78,7 +79,7 @@ private:
      * @param zip zip being searched for in secondary
      * @return index of zipcode in secondary index vector (-1 if not in vector)
      */
-    int secondaryContains(int zip);  
+    int secondaryContains(const uint32_t zip) const;  
     /**
      * @brief handles adding to secondary index vector in a sorted way
      * @param entry entry being added

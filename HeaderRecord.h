@@ -205,7 +205,7 @@ private:
     uint16_t fieldCount; // Count of fields per record
     std::vector<FieldDef> fields;
     uint8_t primaryKeyField; // Unique Identifier for each field (IE: 0 = Zip Code, 1 = State, 2 = County, etc.)
-    uint8_t hasValidIndexFile;
+    uint8_t hasValidIndexFile; // Boolean flag that determines if the index file is valid
 };
 
 #endif

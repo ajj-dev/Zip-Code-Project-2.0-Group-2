@@ -445,3 +445,62 @@ bool CSVBuffer::getNextLengthIndicatedRecord(ZipCodeRecord& record)
 size_t CSVBuffer::getMemoryOffset(){
     return csvFile.tellg(); //gets the memory offset and casts it to long
 }
+
+bool CSVBuffer::readRecordAtMemoryAddress(const size_t address, ZipCodeRecord& record)
+{
+    size_t currentPos = csvFile.tellg(); //save current position to restore later
+    
+    if (!csvFile.is_open() || !isLengthIndicatedMode) 
+    {
+        setError("File not open or not in length-indicated mode");
+        return false;
+    }
+    
+    csvFile.clear();
+    csvFile.seekg(address);
+    
+    if (!csvFile.good()) 
+    {
+        setError("Failed to seek to address");
+        return false;
+    }
+    
+    // Read length prefix
+    uint32_t recordLen;
+    csvFile.read(reinterpret_cast<char*>(&recordLen), 4);
+    
+    if (csvFile.gcount() != 4) 
+    {
+        setError("Failed to read length prefix at offset " + std::to_string(address));
+        return false;
+    }
+    
+    // Read CSV string
+    std::string csvRecord(recordLen, '\0');
+    csvFile.read(&csvRecord[0], recordLen);
+    
+    if (csvFile.gcount() != recordLen) 
+    {
+        setError("Failed to read complete record");
+        return false;
+    }
+    
+    // Parse CSV string
+    std::vector<std::string> fields;
+    if (!parseLine(csvRecord, fields)) 
+    {
+        setError("Failed to parse record");
+        return false;
+    }
+    
+    if (!fieldsToRecord(fields, record)) 
+    {
+        setError("Failed to convert fields to record");
+        return false;
+    }
+    
+    // Restore original position
+    csvFile.seekg(currentPos);
+
+    return true;
+}
