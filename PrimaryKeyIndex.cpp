@@ -26,7 +26,7 @@ void PrimaryKeyIndex::createFromDataFile(CSVBuffer& buffer){
     }
 }
 
-bool PrimaryKeyIndex::write(std::string filename){
+bool PrimaryKeyIndex::write(const std::string& filename){
     std::ofstream out(filename, std::ios::binary);
     if (!out) return false; //if file cannot be opened return false
 
@@ -44,7 +44,7 @@ bool PrimaryKeyIndex::write(std::string filename){
     return true;
 }
 
-bool PrimaryKeyIndex::read(std::string filename){
+bool PrimaryKeyIndex::read(const std::string& filename){
     std::ifstream in(filename, std::ios::binary);
     if (!in) return false; //if file cannot be opened return false
 
@@ -68,7 +68,7 @@ bool PrimaryKeyIndex::read(std::string filename){
     return true;
 }
 
-std::vector<size_t> PrimaryKeyIndex::find(int zip){
+std::vector<size_t> PrimaryKeyIndex::find(const uint32_t zip) const{
     std::vector<size_t> addresses;
     int index = secondaryContains(zip); //get index of the zipcode
     if (index != -1){ //if zip is in secondary key list
@@ -82,7 +82,7 @@ std::vector<size_t> PrimaryKeyIndex::find(int zip){
     }
 }
 
-bool PrimaryKeyIndex::contains(int zip){
+bool PrimaryKeyIndex::contains(const uint32_t zip) const{
     return (secondaryContains(zip) != -1);
 }
 
@@ -103,7 +103,7 @@ void PrimaryKeyIndex::listAddManager(const ZipCodeRecord& zipRecord, const size_
     addPrimary(secondaryEntries[sIndex], pEntry); //add entry to primary array
 }
 
-int PrimaryKeyIndex::secondaryContains(int zip){
+int PrimaryKeyIndex::secondaryContains(const uint32_t zip) const{
     if (secondaryEntries.size() == 0) return false; //if list is empty not found
     int left = 0;
     int right = secondaryEntries.size() - 1;
